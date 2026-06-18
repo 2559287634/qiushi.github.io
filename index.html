@@ -3,584 +3,1517 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>毛泽东 1966–1976 文献辑录</title>
+  <title>毛泽东 · 文献全集</title>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
       font-family: "Source Han Serif SC", "Noto Serif CJK SC", "SimSun", "STSong", Georgia, "Times New Roman", serif;
-      background:#ffffff;
-      color:#1a1a1a;
-      line-height:1.8;
-      -webkit-font-smoothing:antialiased;
+      background:#ffffff; color:#1a1a1a; line-height:1.8; -webkit-font-smoothing:antialiased;
     }
-    .header {
-      max-width:780px;
-      margin:0 auto;
-      padding:80px 24px 40px;
-      text-align:center;
-      border-bottom:1px solid #e5e5e5;
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:#f5f5f5; }
+    ::-webkit-scrollbar-thumb { background:#ccc; border-radius:3px; }
+    ::-webkit-scrollbar-thumb:hover { background:#aaa; }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(28px); }
+      to   { opacity:1; transform:translateY(0); }
     }
-    .header h1 {
-      font-size:clamp(28px,4.5vw,42px);
-      font-weight:700;
-      letter-spacing:4px;
-      margin-bottom:10px;
+    @keyframes revealLine {
+      0%   { opacity:0; transform:translateY(12px); }
+      100% { opacity:1; transform:translateY(0); }
     }
-    .header .subtitle {
-      font-size:15px;
-      color:#777;
-      letter-spacing:2px;
-      margin-bottom:16px;
+    .progress-bar { position:fixed; top:0; left:0; height:2px; background:#1a1a1a; z-index:999; width:0%; transition:width 0.1s linear; }
+    .header { max-width:840px; margin:0 auto; padding:72px 24px 28px; text-align:center; }
+    .header h1 { font-size:clamp(30px,5vw,44px); font-weight:700; letter-spacing:4px; margin-bottom:6px; }
+    .header .subtitle { font-size:14px; color:#999; letter-spacing:2px; }
+    .search-wrap { max-width:840px; margin:0 auto; padding:12px 24px 16px; text-align:center; }
+    .search-box { position:relative; display:inline-block; width:100%; max-width:400px; }
+    .search-box input { width:100%; padding:9px 14px 9px 36px; font-size:14px; font-family:inherit; border:1.5px solid #ddd; border-radius:6px; outline:none; background:#fff; transition:border-color .25s; }
+    .search-box input:focus { border-color:#1a1a1a; }
+    .search-box .icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:13px; color:#bbb; pointer-events:none; }
+    .search-count { font-size:12px; color:#aaa; margin-top:4px; min-height:1.4em; }
+    .period-nav-wrap { position:sticky; top:0; background:rgba(255,255,255,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #e5e5e5; z-index:200; }
+    .period-nav { max-width:840px; margin:0 auto; display:flex; overflow-x:auto; scrollbar-width:none; }
+    .period-nav::-webkit-scrollbar { display:none; }
+    .period-nav a { flex-shrink:0; padding:10px 14px; font-size:13px; font-weight:500; color:#aaa; text-decoration:none; border-bottom:2px solid transparent; transition:color .25s,border-color .25s; letter-spacing:1px; }
+    .period-nav a:hover { color:#1a1a1a; }
+    .period-nav a.active { color:#1a1a1a; border-bottom-color:#1a1a1a; }
+    .year-subnav-wrap { position:sticky; top:41px; background:rgba(255,255,255,0.92); backdrop-filter:blur(6px); border-bottom:1px solid #f0f0f0; z-index:150; overflow:hidden; height:0; opacity:0; transition:height .35s ease,opacity .35s ease; }
+    .year-subnav-wrap.visible { height:auto; opacity:1; }
+    .year-subnav { max-width:840px; margin:0 auto; display:flex; overflow-x:auto; scrollbar-width:none; padding:5px 0; }
+    .year-subnav::-webkit-scrollbar { display:none; }
+    .year-subnav a { flex-shrink:0; padding:4px 10px; margin:2px 2px; border-radius:12px; font-size:11px; color:#bbb; text-decoration:none; letter-spacing:.5px; transition:all .25s; white-space:nowrap; }
+    .year-subnav a:hover { background:#f0f0f0; color:#1a1a1a; }
+    .year-subnav a.active { background:#1a1a1a; color:#fff; font-weight:500; }
+    .year-subnav a .ytag-sub { color:#999; font-weight:400; margin-left:2px; }
+    .year-subnav a.active .ytag-sub { color:rgba(255,255,255,0.7); }
+    .year-subnav a:hover { color:#1a1a1a; }
+    .year-subnav a.active { color:#1a1a1a; font-weight:600; }
+    .main { max-width:840px; margin:0 auto; padding:0 24px 80px; }
+    .period-section { padding-top:8px; }
+    .period-head { padding:36px 0 10px; }
+    .period-head .pn { font-size:20px; font-weight:700; letter-spacing:2px; }
+    .period-head .pn small { font-size:13px; font-weight:400; color:#bbb; letter-spacing:0; }
+    .period-head .pr { width:34px; height:2px; background:#1a1a1a; margin-top:6px; }
+    .year-header { display:flex; align-items:baseline; gap:10px; padding:20px 0 8px; border-bottom:1px solid #f0f0f0; margin-bottom:14px; }
+    .year-header .y { font-size:19px; font-weight:700; letter-spacing:1px; }
+    .year-header .ytag { font-size:12px; color:#bbb; font-weight:400; }
+
+    .entry-header {
+      display:flex; align-items:center; gap:8px;
+      padding:10px 14px; cursor:pointer;
+      user-select:none; transition:background .2s;
     }
-    .header .intro {
-      font-size:14px;
-      color:#888;
-      line-height:1.9;
-      max-width:560px;
-      margin:0 auto;
-    }
-    .year-nav-wrap {
-      position:sticky;
-      top:0;
-      background:rgba(255,255,255,0.94);
-      border-bottom:1px solid #e5e5e5;
-      z-index:100;
-    }
-    .year-nav {
-      max-width:780px;
-      margin:0 auto;
-      display:flex;
-      overflow-x:auto;
-      gap:0;
-      scrollbar-width:none;
-      -ms-overflow-style:none;
-    }
-    .year-nav::-webkit-scrollbar { display:none; }
-    .year-nav a {
-      flex-shrink:0;
-      padding:12px 16px;
-      font-size:14px;
-      font-weight:500;
-      color:#aaa;
-      text-decoration:none;
-      border-bottom:2px solid transparent;
-      transition:color .2s,border-color .2s;
-      letter-spacing:1px;
-    }
-    .year-nav a:hover { color:#1a1a1a; }
-    .year-nav a.active { color:#1a1a1a; border-bottom-color:#1a1a1a; }
-    .main {
-      max-width:780px;
-      margin:0 auto;
-      padding:0 24px 80px;
-    }
-    .year-section {
-      padding:48px 0 24px;
-    }
-    .year-section:not(:last-child) {
-      border-bottom:1px solid #f0f0f0;
-    }
-    .year-heading {
-      font-size:22px;
-      font-weight:700;
-      letter-spacing:2px;
-      margin-bottom:4px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .year-heading small {
-      font-size:13px;
-      font-weight:400;
-      color:#bbb;
-      letter-spacing:0;
-    }
-    .year-rule {
-      width:40px;
-      height:2px;
-      background:#1a1a1a;
-      margin:8px 0 24px;
-    }
-    .entry {
-      margin-bottom:28px;
-      padding-left:4px;
-    }
-    .entry-title {
-      font-size:17px;
-      font-weight:600;
-      margin-bottom:2px;
-    }
+    .entry-header:hover { background:#fafafa; }
+    .entry-title { font-size:15px; font-weight:600; flex:1; }
+    .entry-title .hl { background:#fff3b0; padding:0 2px; }
     .entry-badge {
-      display:inline-block;
-      font-size:11px;
-      font-weight:500;
-      letter-spacing:1px;
-      color:#fff;
-      background:#1a1a1a;
-      padding:1px 10px;
-      border-radius:10px;
-      vertical-align:middle;
-      margin-right:6px;
+      display:inline-block; font-size:10px; font-weight:500; letter-spacing:1px;
+      color:#fff; background:#1a1a1a; padding:0 8px; border-radius:8px;
+      vertical-align:middle; flex-shrink:0;
     }
-    .entry-badge.poem {
-      background:#fff;
-      color:#1a1a1a;
-      border:1px solid #1a1a1a;
+    .entry-badge.poem { background:#fff; color:#1a1a1a; border:1px solid #1a1a1a; }
+    .entry-meta { font-size:12px; color:#aaa; flex-shrink:0; }
+    .entry-toggle {
+      flex-shrink:0; width:22px; height:22px; border-radius:50%;
+      border:1px solid #ccc; background:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px; color:#888; cursor:pointer;
+      transition:transform .3s,background .2s;
     }
-    .entry-meta {
-      font-size:13px;
-      color:#aaa;
-      margin-bottom:6px;
-    }
+    .entry-toggle:hover { background:#eee; }
+    .entry.expanded .entry-toggle { transform:rotate(45deg); background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
     .entry-body {
-      font-size:15px;
-      color:#444;
-      line-height:1.9;
+      max-height:0; overflow:hidden;
+      transition:max-height .5s ease;
+      border-top:1px solid #f0f0f0;
     }
-    .entry-body .poem-line {
-      display:block;
-      text-indent:0;
-      line-height:2;
-    }
-    .entry-body .poem-line:not(:last-child) {
-      margin-bottom:2px;
-    }
-    .entry-body .indent {
-      text-indent:2em;
-    }
-    .entry-body .quote {
-      border-left:3px solid #ddd;
-      padding-left:16px;
-      margin:8px 0;
-      color:#666;
-      font-size:14px;
-    }
-    .entry-body .attr {
-      font-size:13px;
-      color:#999;
-      margin-top:6px;
-    }
-    footer {
-      max-width:780px;
-      margin:0 auto;
-      padding:32px 24px 48px;
-      text-align:center;
-      font-size:13px;
-      color:#bbb;
-      border-top:1px solid #eee;
-    }
-    .to-top {
-      position:fixed;
-      bottom:32px;
-      right:32px;
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:#1a1a1a;
-      color:#fff;
-      border:none;
-      font-size:18px;
-      cursor:pointer;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .3s;
-    }
+    .entry.expanded .entry-body { max-height:10000px; }
+    .entry-body-inner { padding:14px 14px 18px; }
+    .entry-body .poem-line { display:block; text-indent:0; line-height:2; }
+    .entry-body .indent { text-indent:2em; }
+    .entry-body .quote { border-left:3px solid #ddd; padding-left:16px; margin:8px 0; color:#555; font-size:14px; line-height:1.8; }
+    .entry-body .attr { font-size:12px; color:#999; margin-top:8px; }
+    .entry.hidden { display:none; }
+    .badge-count { font-size:11px; color:#999; margin-left:auto; padding-right:4px; }
+    footer { max-width:840px; margin:0 auto; padding:28px 24px 44px; text-align:center; font-size:12px; color:#bbb; border-top:1px solid #eee; }
+    .to-top { position:fixed; bottom:28px; right:28px; width:38px; height:38px; border-radius:50%; background:#1a1a1a; color:#fff; border:none; font-size:16px; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .35s; }
     .to-top.visible { opacity:0.6; pointer-events:auto; }
     .to-top.visible:hover { opacity:1; }
-    .year-anchor {
-      position:relative;
-      top:-60px;
-      visibility:hidden;
+    .entry { margin-bottom:10px; padding-left:4px; border:1px solid #f0f0f0; border-radius:6px; }
+    .entry.visible { animation:fadeUp .7s ease forwards; }
+    .entry.visible[data-stagger="0"] { animation-delay:0s; }
+    .entry.visible[data-stagger="1"] { animation-delay:0.07s; }
+    .entry.visible[data-stagger="2"] { animation-delay:0.14s; }
+    .entry.visible[data-stagger="3"] { animation-delay:0.21s; }
+    .entry.visible[data-stagger="4"] { animation-delay:0.28s; }
+    .entry.visible[data-stagger="5"] { animation-delay:0.35s; }
+    .entry.visible[data-stagger="6"] { animation-delay:0.42s; }
+    .entry.visible[data-stagger="7"] { animation-delay:0.49s; }
+    .entry.expanded .entry-body-inner p,
+    .entry.expanded .entry-body-inner .poem-line,
+    .entry.expanded .entry-body-inner .quote,
+    .entry.expanded .entry-body-inner .attr {
+      opacity:0; animation:revealLine .5s ease forwards;
     }
+    .entry.expanded .entry-body-inner p:nth-child(1) { animation-delay:0.05s; }
+    .entry.expanded .entry-body-inner p:nth-child(2) { animation-delay:0.1s; }
+    .entry.expanded .entry-body-inner p:nth-child(3) { animation-delay:0.15s; }
+    .entry.expanded .entry-body-inner p:nth-child(4) { animation-delay:0.2s; }
+    .entry.expanded .entry-body-inner p:nth-child(5) { animation-delay:0.25s; }
+    .entry.expanded .entry-body-inner p:nth-child(6) { animation-delay:0.3s; }
+    .entry.expanded .entry-body-inner p:nth-child(7) { animation-delay:0.35s; }
+    .entry.expanded .entry-body-inner p:nth-child(8) { animation-delay:0.4s; }
+    .entry.expanded .entry-body-inner p:nth-child(9) { animation-delay:0.45s; }
+    .entry.expanded .entry-body-inner p:nth-child(10) { animation-delay:0.5s; }
+    .entry.expanded .entry-body-inner p:nth-child(11) { animation-delay:0.55s; }
+    .entry.expanded .entry-body-inner p:nth-child(12) { animation-delay:0.6s; }
+    .entry.expanded .entry-body-inner p:nth-child(13) { animation-delay:0.65s; }
+    .entry.expanded .entry-body-inner p:nth-child(14) { animation-delay:0.7s; }
+    .entry.expanded .entry-body-inner p:nth-child(15) { animation-delay:0.75s; }
+    .entry.expanded .entry-body-inner .attr { animation-delay:0.65s; }
+    .entry-body { transition:max-height .6s cubic-bezier(0.4,0,0.2,1); }
+    .period-nav a.active::after { content:""; display:block; width:4px; height:4px; background:#1a1a1a; border-radius:50%; margin:3px auto 0; }
     @media (max-width:600px) {
-      .header { padding:56px 20px 28px; }
-      .main { padding:0 20px 60px; }
-      .entry-title { font-size:16px; }
-      .year-nav a { padding:10px 12px; font-size:13px; }
-      .to-top { right:16px; bottom:16px; width:36px; height:36px; font-size:15px; }
+      .header { padding:52px 18px 22px; }
+      .main { padding:0 18px 60px; }
+      .entry-title { font-size:14px; }
+      .period-nav a { padding:8px 10px; font-size:12px; }
+      .entry-header { padding:8px 10px; }
+      .to-top { right:14px; bottom:14px; width:34px; height:34px; font-size:14px; }
     }
   </style>
 </head>
-<body>
+<body><div class="progress-bar" id="progressBar"></div>
   <header class="header">
     <h1>毛泽东</h1>
-    <p class="subtitle">1966 – 1976 文献辑录</p>
-    <p class="intro">
-      本文档收录毛泽东主席在一九六六年至一九七六年期间的重要文章、指示与诗词全文。
-      所有内容均为历史文献原文，按年份编排，便于查阅。
-    </p>
+    <p class="subtitle">1893 – 1976 · 文献全集</p>
   </header>
-  <nav class="year-nav-wrap">
-    <div class="year-nav" id="yearNav">
-      <a href="#y1966" data-year="1966">1966</a>
-      <a href="#y1967" data-year="1967">1967</a>
-      <a href="#y1968" data-year="1968">1968</a>
-      <a href="#y1969" data-year="1969">1969</a>
-      <a href="#y1970" data-year="1970">1970</a>
-      <a href="#y1971" data-year="1971">1971</a>
-      <a href="#y1972" data-year="1972">1972</a>
-      <a href="#y1973" data-year="1973">1973</a>
-      <a href="#y1974" data-year="1974">1974</a>
-      <a href="#y1975" data-year="1975">1975</a>
-      <a href="#y1976" data-year="1976">1976</a>
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="搜索标题…" autocomplete="off">
+    </div>
+    <div class="search-count" id="searchCount"></div>
+  </div>
+  <nav class="period-nav-wrap">
+    <div class="period-nav" id="periodNav">
+      <a href="#p0" data-period="0">少年</a>
+      <a href="#p1" data-period="1">青年</a>
+      <a href="#p2" data-period="2">延安革命</a>
+      <a href="#p3" data-period="3">建国后</a>
+      <a href="#p4" data-period="4">曲折探索</a>
+      <a href="#p5" data-period="5">文革十年</a>
     </div>
   </nav>
+  <nav class="year-subnav-wrap" id="yearSubnavWrap">
+    <div class="year-subnav" id="yearSubnav"></div>
+  </nav>
   <main class="main">
-    <!-- 1966 -->
-    <div class="year-section" id="y1966">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1966 <small>五一六通知与十六条</small></div>
-      <div class="year-rule"></div>
-      <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 中国共产党中央委员会通知（五一六通知）</div>
-        <div class="entry-meta">1966年5月16日 · 中共中央政治局扩大会议通过</div>
-        <div class="entry-body">
-          <p class="indent">各中央局，各省、市、自治区党委，中央各部委，国家机关各部门和各人民团体党组、党委：</p>
-          <p class="indent">中央决定撤销一九六六年二月十二日批转的《文化革命五人小组关于当前学术讨论的汇报提纲》，撤销原来的"文化革命五人小组"及其办事机构，重新设立文化革命小组，隶属于政治局常委之下。</p>
-          <p class="indent">总之，中央这个通知，是指导无产阶级文化大革命的一个极其重要的文件。全党必须遵照执行。</p>
-          <p class="attr">—— 节录自《中国共产党中央委员会通知》</p>
-        </div>
+    <section class="period-section" id="p0" data-period="0">
+      <div class="period-head">
+        <div class="pn">少年 <small>1893 – 1920</small></div>
+        <div class="pr"></div>
       </div>
+      <div class="year-header" data-year="1893"><span class="y">1893</span><span class="ytag">诞生</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">文章</span> 炮打司令部——我的一张大字报</div>
-        <div class="entry-meta">1966年8月5日 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">全国第一张马列主义的大字报和人民日报评论员的评论，写得何等好呵！请同志们重读一遍这张大字报和这个评论。可是在五十多天里，从中央到地方的某些领导同志，却反其道而行之，站在反动的资产阶级立场上，实行资产阶级专政，将无产阶级轰轰烈烈的文化大革命运动打下去，颠倒是非，混淆黑白，围剿革命派，压制不同意见，实行白色恐怖，自以为得意，长资产阶级的威风，灭无产阶级的志气，又何其毒也！</p>
-          <p class="attr">—— 写于中共八届十一中全会期间</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">诞生于湖南湘潭韶山冲</span>
+          <span class="entry-meta">1893年12月26日</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">毛泽东，字润之，生于湖南省长沙府湘潭县韶山冲。祖父毛恩普，父亲毛贻昌，母亲文七妹。八岁始入私塾，先读《三字经》《千字文》，继学《论语》《孟子》《诗经》等儒家经典。韶山冲的山水与农家生活，塑造了他早年亲近土地、同情贫苦的品格。</p>
+          <p class="indent">一九一〇年秋，毛泽东考入湘乡县东山高等小学堂。离家前，他改写一首诗留给父亲，表明求学救国之志。</p>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1910"><span class="y">1910</span><span class="ytag">出乡关</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于无产阶级文化大革命的决定（十六条）</div>
-        <div class="entry-meta">1966年8月8日 · 中共八届十一中全会通过</div>
-        <div class="entry-body">
-          <p class="indent">一、社会主义革命的新阶段。当前开展的无产阶级文化大革命，是一场触及人们灵魂的大革命，是我国社会主义革命发展的一个更深入、更广阔的新阶段。</p>
-          <p class="indent">二、主流和曲折。广大的工农兵、革命的知识分子和革命的干部，是这场文化大革命的主力军。</p>
-          <p class="indent">十六、毛泽东思想是无产阶级文化大革命的行动指南。</p>
-          <p class="attr">—— 节录自《中国共产党中央委员会关于无产阶级文化大革命的决定》</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七绝·呈父亲</span>
+          <span class="entry-meta">1910年秋</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">孩儿立志出乡关，</span>
+          <span class="poem-line">学不成名誓不还。</span>
+          <span class="poem-line">埋骨何须桑梓地，</span>
+          <span class="poem-line">人生无处不青山。</span>
+          <p class="attr">—— 改写日本西乡隆盛诗赠父亲</p>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1917"><span class="y">1917</span><span class="ytag">初步著述</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 在接见外地来京革命师生大会上的讲话</div>
-        <div class="entry-meta">1966年8月31日 · 北京天安门</div>
-        <div class="entry-body">
-          <p class="indent">同志们，同学们：你们热烈响应党中央和毛主席的号召，从全国各地来到北京，进行革命的大串联。我代表党中央和毛主席，向你们表示热烈的欢迎。</p>
-          <p class="quote">你们要关心国家大事，要把无产阶级文化大革命进行到底！</p>
-          <p class="attr">—— 毛泽东接见红卫兵时的讲话要点</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">体育之研究</span>
+          <span class="entry-meta">1917年4月 · 《新青年》</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">国力苶弱，武风不振，民族之体质日趋轻细。此甚可忧之现象也。提倡体育的目的，在于"强筋骨、增知识、调感情、强意志"。</p>
+          <p class="indent">体育之效：至于强筋骨，因而增知识，因而调感情，因而强意志。筋骨者，吾人之身；知识、感情、意志者，吾人之心。身心皆适，是谓俱泰。故夫体育非他，养乎吾生、乐乎吾心而已。</p>
+          <p class="indent">意志也者，固人生事业之先驱也。体育之效，至于强筋骨，因而增知识，因而调感情，因而强意志。体育于吾人实占第一之位置。体强壮而后学问道德之进修勇而收效远。</p>
+          <p class="attr">—— 节录自《体育之研究》，署名"二十八画生"，原载《新青年》第三卷第二号</p>
+        </div></div>
       </div>
-    </div>
-    <!-- 1967 -->
-    <div class="year-section" id="y1967">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1967 <small>斗私批修</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1919"><span class="y">1919</span><span class="ytag">五四运动</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于整党问题的指示</div>
-        <div class="entry-meta">1967年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">党组织应是无产阶级先进分子所组成，应能领导无产阶级和革命群众对于阶级敌人进行战斗的朝气蓬勃的先锋队组织。</p>
-          <p class="attr">—— 摘自毛泽东关于整党问题的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">《湘江评论》创刊宣言</span>
+          <span class="entry-meta">1919年7月14日</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">世界什么问题最大？吃饭问题最大。什么力量最强？民众联合的力量最强。什么不要怕？天不要怕，鬼不要怕，死人不要怕，官僚不要怕，军阀不要怕，资本家不要怕。</p>
+          <p class="indent">自"世界革命"的呼声大倡，"人类解放"的运动猛进，从前吾人所不置疑的问题，所不遽取的方法，多所畏缩的说话，于今都要一改旧观，不疑者疑，不取者取，多畏缩者不畏缩了。这种潮流，任是什么力量，不能阻住。任是什么人物，不能不受他的软化。</p>
+          <p class="attr">—— 节录自《湘江评论》创刊号</p>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1920"><span class="y">1920</span><span class="ytag">确立信仰</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于革命大联合的号召</div>
-        <div class="entry-meta">1967年10月 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="quote">在工人阶级内部，没有根本的利害冲突。在无产阶级专政下的工人阶级内部，更没有理由一定要分裂成为势不两立的两大派组织。</p>
-          <p class="attr">—— 毛泽东视察华北、中南和华东地区时的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">确立马克思主义信仰</span>
+          <span class="entry-meta">1920年冬</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">我第二次到北京期间，读了许多关于俄国情况的书。我热烈地搜寻一切那时候能找到的中文的共产主义文献。有三本书特别深地铭刻在我的心中，建立起我对马克思主义的信仰。我一旦接受了马克思主义是对历史的正确解释以后，我对马克思主义的信仰就没有动摇过。这三本书是：《共产党宣言》，陈望道译，这是用中文出版的第一本马克思主义的书；《阶级斗争》，考茨基著；《社会主义史》，柯卡普著。</p>
+          <p class="indent">到了1920年夏天，在理论上，而且在某种程度的行动上，我已成为一个马克思主义者了。</p>
+          <p class="attr">—— 毛泽东与斯诺谈话，1936年</p>
+        </div></div>
       </div>
-    </div>
-    <!-- 1968 -->
-    <div class="year-section" id="y1968">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1968 <small>知识青年到农村去</small></div>
-      <div class="year-rule"></div>
+    </section>
+    <section class="period-section" id="p1" data-period="1">
+      <div class="period-head">
+        <div class="pn">青年 <small>1921 – 1934</small></div>
+        <div class="pr"></div>
+      </div>
+      <div class="year-header" data-year="1921"><span class="y">1921</span><span class="ytag">中共一大</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于知识青年上山下乡的号召</div>
-        <div class="entry-meta">1968年12月22日 · 《人民日报》</div>
-        <div class="entry-body">
-          <p class="quote">知识青年到农村去，接受贫下中农的再教育，很有必要。要说服城里干部和其他人，把自己初中、高中、大学毕业的子女，送到乡下去，来一个动员。各地农村的同志应当欢迎他们去。</p>
-          <p class="attr">—— 毛泽东指示，《人民日报》发表</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">参加中国共产党第一次全国代表大会</span>
+          <span class="entry-meta">1921年7月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">一九二一年七月，毛泽东作为湖南代表出席在上海召开的中国共产党第一次全国代表大会。大会确定了党的名称、奋斗目标和基本任务，选举了中央领导机构。从此，中国出现了以马克思列宁主义为行动指南的统一的无产阶级政党。毛泽东参与了这一开创性的历史事件。</p>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1923"><span class="y">1923</span><span class="ytag">早期诗词</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于清理阶级队伍的指示</div>
-        <div class="entry-meta">1968年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">要认真搞好斗、批、改。要扩大教育面，缩小打击面。要允许干部犯错误，允许干部改正错误。</p>
-          <p class="attr">—— 毛泽东关于斗、批、改的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">贺新郎·别友</span>
+          <span class="entry-meta">1923年 · 赠杨开慧</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">挥手从兹去。</span>
+          <span class="poem-line">更那堪凄然相向，苦情重诉。</span>
+          <span class="poem-line">眼角眉梢都似恨，热泪欲零还住。</span>
+          <span class="poem-line">知误会前番书语。</span>
+          <span class="poem-line">过眼滔滔云共雾，算人间知己吾和汝。</span>
+          <span class="poem-line">人有病，天知否？</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">今朝霜重东门路，</span>
+          <span class="poem-line">照横塘半天残月，凄清如许。</span>
+          <span class="poem-line">汽笛一声肠已断，从此天涯孤旅。</span>
+          <span class="poem-line">凭割断愁丝恨缕。</span>
+          <span class="poem-line">要似昆仑崩绝壁，又恰像台风扫寰宇。</span>
+          <span class="poem-line">重比翼，和云翥。</span>
+        </div></div>
       </div>
-    </div>
-    <!-- 1969 -->
-    <div class="year-section" id="y1969">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1969 <small>团结起来，争取更大的胜利</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1925"><span class="y">1925</span><span class="ytag">阶级分析</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">文章</span> 中国共产党第九次全国代表大会上的开幕词（要点）</div>
-        <div class="entry-meta">1969年4月1日 · 北京</div>
-        <div class="entry-body">
-          <p class="indent">九大是在无产阶级文化大革命取得伟大胜利的时刻召开的。这次代表大会，将是一次团结的大会，胜利的大会。</p>
-          <p class="attr">—— 毛泽东在中共九大上的讲话</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">中国社会各阶级的分析</span>
+          <span class="entry-meta">1925年12月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">谁是我们的敌人？谁是我们的朋友？这个问题是革命的首要问题。中国过去一切革命斗争成效甚少，其基本原因就是因为不能团结真正的朋友，以攻击真正的敌人。革命党是群众的向导，在革命中未有革命党领错了路而革命不失败的。我们的革命要有不领错路和一定成功的把握，不可不注意团结我们的真正的朋友，以攻击我们的真正的敌人。我们要分辨真正的敌友，不可不将中国社会各阶级的经济地位及其对革命的态度，作一个大概的分析。</p>
+          <p class="indent">中国社会各阶级的情况是怎样的呢？</p>
+          <p class="indent">地主阶级和买办阶级。在经济落后的半殖民地的中国，地主阶级和买办阶级完全是国际资产阶级的附庸，其生存和发展，是附属于帝国主义的。这些阶级代表中国最落后的和最反动的生产关系，阻碍中国生产力的发展。他们和中国革命的目的完全不相容。特别是大地主阶级和大买办阶级，他们始终站在帝国主义一边，是极端的反革命派。其政治代表是国家主义派和国民党右派。</p>
+          <p class="indent">中产阶级。这个阶级代表中国城乡资本主义的生产关系。中产阶级主要是指民族资产阶级，他们对于中国革命具有矛盾的态度：他们在受外资打击、军阀压迫感觉痛苦时，需要革命，赞成反帝国主义反军阀的革命运动；但是当着革命在国内有本国无产阶级的勇猛参加，在国外有国际无产阶级的积极援助，对于其欲达到大资产阶级地位的阶级的发展感觉到威胁时，他们又怀疑革命。其政治主张为实现民族资产阶级一阶级统治的国家。但是，完全实现这个主张是行不通的，因为现在世界上的局面，是革命和反革命两大势力作最后斗争的局面。那些中间阶级，必定很快地分化，或者向左跑入革命派，或者向右跑入反革命派，没有他们"独立"的余地。</p>
+          <p class="indent">小资产阶级。如自耕农，手工业主，小知识阶层——学生界、中小学教员、小员司、小事务员、小律师，小商人等都属于这一类。这一个阶级，在人数上，在阶级性上，都值得大大注意。自耕农和手工业主所经营的，都是小生产的经济。这个小资产阶级内的各阶层虽然同处在小资产阶级经济地位，但有三个不同的部分。第一部分是有余钱剩米的，即用其体力或脑力劳动所得，除自给外，每年有余剩。这种人发财观念极重，对赵公元帅礼拜最勤，虽不妄想发大财，却总想爬上中产阶级地位。他们看见那些受人尊敬的小财东，往往垂着一尺长的涎水。这种人胆子小，他们怕官，也有点怕革命。因为他们的经济地位和中产阶级颇接近，故对于中产阶级的宣传颇相信，对于革命取怀疑的态度。第二部分是在经济上大体上可以自给的。这一部分人比较第一部分人大不相同，他们也想发财，但是赵公元帅总不让他们发财，而且因为帝国主义、军阀、封建地主、买办大资产阶级的压迫和剥削，他们感觉现在的世界已经不是从前的世界。他们觉得如果只使用和从前相等的劳动，就会不能维持生活。必须增加劳动时间，每天起早散晚，对于职业加倍注意，方能维持生活。他们有点骂人了，骂洋人叫"洋鬼子"，骂军阀叫"抢钱司令"，骂土豪劣绅叫"为富不仁"。对于反帝国主义反军阀的运动，仅怀疑其未必成功，不肯贸然参加，取了中立的态度，但是绝不反对革命。第三部分是生活下降的。这一部分人好些大概原先是所谓殷实人家，渐渐变得仅仅可以保住，渐渐变得生活下降了。他们每逢年终结账一次，就吃惊一次，说："咳，又亏了！"这种人因为他们过去过着好日子，后来逐年下降，负债渐多，渐次过着凄凉的日子，"瞻念前途，不寒而栗"。这种人在精神上感觉的痛苦很大，因为他们有一个从前和现在相反的比较。这种人在革命运动中颇要紧，是一个数量不小的群众，是小资产阶级的左翼。</p>
+          <p class="indent">半无产阶级。包含绝大部分半自耕农、贫农、小手工业者、店员、小贩等五种。绝大部分半自耕农和贫农是农村中一个数量极大的群众。所谓农民问题，就是他们的问题。半自耕农、贫农和小手工业者所经营的，都是更细小的小生产的经济。半自耕农的生活是苦于自耕农的，因其食粮每年大约有一半不够，须租别人田地，或者出卖一部分劳动力，或经营小商，以资弥补。贫农是农村中的佃农，受地主的剥削。其经济地位又分两部分。一部分贫农有比较充足的农具和相当数量的资金。此种农民，每年劳动结果，自己可得一半。另一部分贫农，则既无充足的农具，又无资金，肥料不足，土地歉收，送租之外，所得无几，更需要出卖一部分劳动力。荒时暴月，向亲友乞哀告怜，借得几斗几升，敷衍三日五日，债务丛集，如牛负重。他们是农民中极艰苦者，极易接受革命的宣传。</p>
+          <p class="indent">无产阶级。现代工业无产阶级约二百万人。中国因经济落后，故现代工业无产阶级人数不多。但他们是新的生产力的代表者，是近代中国最进步的阶级，做了革命运动的领导力量。他们所以能如此，第一个原因是集中。无论哪种人都不如他们的集中。第二个原因是经济地位低下。他们失了生产手段，剩下两手，绝了发财的望，又受着帝国主义、军阀、资产阶级的极残酷的待遇，所以他们特别能战斗。</p>
+          <p class="indent">综上所述，可知一切勾结帝国主义的军阀、官僚、买办阶级、大地主阶级以及附属于他们的一部分反动知识界，是我们的敌人。工业无产阶级是我们革命的领导力量。一切半无产阶级、小资产阶级，是我们最接近的朋友。那动摇不定的中产阶级，其右翼可能是我们的敌人，其左翼可能是我们的朋友——但我们要时常提防他们，不要让他们扰乱了我们的阵线。</p>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于整党建党工作的指示</div>
-        <div class="entry-meta">1969年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="quote">一个人有动脉，静脉，通过心脏进行血液循环，还要通过肺部进行呼吸，呼出二氧化碳，吸进新鲜氧气，这就是吐故纳新。一个无产阶级的党也要吐故纳新，才能朝气蓬勃。不清除废料，不吸收新鲜血液，党就没有朝气。</p>
-          <p class="attr">—— 毛泽东关于整党建党的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">沁园春·长沙</span>
+          <span class="entry-meta">1925年</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">独立寒秋，湘江北去，橘子洲头。</span>
+          <span class="poem-line">看万山红遍，层林尽染；漫江碧透，百舸争流。</span>
+          <span class="poem-line">鹰击长空，鱼翔浅底，万类霜天竞自由。</span>
+          <span class="poem-line">怅寥廓，问苍茫大地，谁主沉浮？</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">携来百侣曾游。忆往昔峥嵘岁月稠。</span>
+          <span class="poem-line">恰同学少年，风华正茂；书生意气，挥斥方遒。</span>
+          <span class="poem-line">指点江山，激扬文字，粪土当年万户侯。</span>
+          <span class="poem-line">曾记否，到中流击水，浪遏飞舟？</span>
+        </div></div>
       </div>
-    </div>
-    <!-- 1970 -->
-    <div class="year-section" id="y1970">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1970 <small>我的一点意见</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1927"><span class="y">1927</span><span class="ytag">农民运动</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">文章</span> 我的一点意见</div>
-        <div class="entry-meta">1970年8月31日 · 中共九届二中全会</div>
-        <div class="entry-body">
-          <p class="indent">这个材料是陈伯达同志搞的，欺骗了不少同志。是英雄创造历史，还是奴隶们创造历史，是唯心论的先验论，还是唯物论的反映论，我们只能站在马克思主义的立场上，而绝不能站在陈伯达的立场上。</p>
-          <p class="attr">—— 毛泽东《我的一点意见》</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">湖南农民运动考察报告</span>
+          <span class="entry-meta">1927年3月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">农民问题的严重性。我这回到湖南，实地考察了湘潭、湘乡、衡山、醴陵、长沙五县的情况。从一月四日起至二月五日止，共三十二天，在乡下，在县城，召集有经验的农民和农运工作同志开调查会，仔细听他们的报告，所得材料不少。许多农民运动的道理，和在汉口、长沙从绅士阶级那里听得的道理，完全相反。许多奇事，则见所未见，闻所未闻。一切革命同志须知：国民革命需要一个大的农村变动。辛亥革命没有这个变动，所以失败了。现在有了这个变动，乃是革命完成的重要因素。一切革命同志都要拥护这个变动，否则他就站到反革命立场上去了。</p>
+          <p class="indent">"糟得很"和"好得很"。农民在乡里造反，搅动了绅士们的酣梦。从中层以上社会至国民党右派，无不一言以蔽之曰："糟得很。"即使是很革命的人吧，受了那班"糟得很"派的满城风雨的议论的压迫，他闭眼一想乡村的情况，也就气馁起来，没有法子否认这"糟"字。很进步的人也只是说："这是革命过程中应有的事，虽则是糟。"总而言之，无论什么人都无法完全否认这"糟"字。实在呢，如前所说，乃是广大的农民群众起来完成他们的历史使命，乃是乡村的民主势力起来打翻乡村的封建势力。宗法封建性的土豪劣绅，不法地主阶级，是几千年专制政治的基础，帝国主义、军阀、贪官污吏的墙脚。打翻这个封建势力，乃是国民革命的真正目标。孙中山先生致力国民革命凡四十年，所要做而没有做到的事，农民在几个月内做到了。这是四十年乃至几千年未曾成就过的奇勋。这是好得很。完全没有什么"糟"，完全不是什么"糟得很"。"糟得很"，明明是站在地主利益方面打击农民起来的理论，明明是地主阶级企图保存封建旧秩序，阻碍建设民主新秩序的理论，明明是反革命的理论。每个革命的同志，都不应该跟着瞎说。你若是一个确定了革命观点的人，而且是跑到乡村里去看过一遍的，你必定觉到一种从来未有的痛快。无数万成群的奴隶——农民，在那里打翻他们的吃人的仇敌。农民的举动，完全是对的，他们的举动好得很！"好得很"是农民及其他革命派的理论。</p>
+          <p class="indent">所谓"过分"的问题。又有一般人说："农会虽要办，但是现在农会的举动未免太过分了。"这是中派的议论。实际怎样呢？的确的，农民在乡里颇有一点子"乱来"。农会权力无上，不许地主说话，把地主威风扫光。这等于将地主打翻在地，再踏上一只脚。"把你入另册！"向土豪劣绅罚款捐款，打轿子。反对农会的土豪劣绅的家里，一群人涌进去，杀猪出谷。土豪劣绅的小姐少奶奶的牙床上，也可以踏上去滚一滚。动不动捉人戴高帽子游乡，"劣绅！今天认得我们！"为所欲为，一切反常，竟在乡村造成一种恐怖现象。这就是一些人的所谓"过分"，所谓"矫枉过正"，所谓"未免太不成话"。这派议论貌似有理，其实也是错的。第一，上述那些事，都是土豪劣绅、不法地主自己逼出来的。土豪劣绅、不法地主，历来凭借势力称霸，践踏农民，农民才有这种很大的反抗。凡是反抗最力、乱子闹得最大的，都是土豪劣绅、不法地主为恶最甚的地方。农民的眼睛，全然没有错的。谁个劣，谁个不劣，谁个最甚，谁个稍次，谁个惩办要严，谁个处罚从轻，农民都有极明白的计算，罚不当罪的极少。第二，革命不是请客吃饭，不是做文章，不是绘画绣花，不能那样雅致，那样从容不迫，文质彬彬，那样温良恭俭让。革命是暴动，是一个阶级推翻一个阶级的暴烈的行动。农村革命是农民阶级推翻封建地主阶级的权力的革命。农民若不用极大的力量，决不能推翻几千年根深蒂固的地主权力。农村中须有一个大的革命热潮，才能鼓动成千成万的群众，形成一个大的力量。上面所述那些所谓"过分"的举动，都是农民在乡村中由大的革命热潮鼓动出来的力量所造成的。这些举动，在农民运动第二时期（革命时期）是非常之需要的。在第二时期内，必须建立农民的绝对权力。必须不准人恶意地批评农会。必须把一切绅权都打倒，把绅士打在地下，甚至用脚踏上。所有一切所谓"过分"的举动，在第二时期都有革命的意义。质言之，每个农村都必须造成一个短时期的恐怖现象，非如此决不能镇压农村反革命派的活动，决不能打倒绅权。矫枉必须过正，不过正不能矫枉。</p>
+          <p class="indent">十四件大事。一般指摘农会的人说农会做了许多坏事。我在前面已经指出，农民在农会领导下总共做了十四件大事，如下所记。第一件，将农民组织在农会里。第二件，政治上打击地主。第三件，经济上打击地主。第四件，推翻土豪劣绅的封建统治——打倒都团。第五件，推翻地主武装，建立农民武装。第六件，推翻县官老爷衙门差役的政权。第七件，推翻祠堂族长的族权和城隍土地菩萨的神权以至丈夫的男权。第八件，普及政治宣传。第九件，农民诸禁。第十件，清匪。第十一件，废苛捐。第十二件，文化运动。第十三件，合作社运动。第十四件，修道路，修塘坝。总上十四件事，都是农民在农会领导之下做出来的。就其基本的精神说来，就其革命意义说来，请读者们想一想，哪一件不好？</p>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 五二O声明</div>
-        <div class="entry-meta">1970年5月20日 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="quote">全世界人民团结起来，打败美国侵略者及其一切走狗！</p>
-          <p class="attr">—— 毛泽东《五二O声明》</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">菩萨蛮·黄鹤楼</span>
+          <span class="entry-meta">1927年春</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">茫茫九派流中国，</span>
+          <span class="poem-line">沉沉一线穿南北。</span>
+          <span class="poem-line">烟雨莽苍苍，</span>
+          <span class="poem-line">龟蛇锁大江。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">黄鹤知何去？</span>
+          <span class="poem-line">剩有游人处。</span>
+          <span class="poem-line">把酒酹滔滔，</span>
+          <span class="poem-line">心潮逐浪高！</span>
+        </div></div>
       </div>
-    </div>
-    <!-- 1971 -->
-    <div class="year-section" id="y1971">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1971 <small>要团结，不要分裂</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1928"><span class="y">1928</span><span class="ytag">井冈山斗争</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 南巡谈话要点</div>
-        <div class="entry-meta">1971年8月-9月 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="quote">要搞马克思主义，不要搞修正主义；要团结，不要分裂；要光明正大，不要搞阴谋诡计。</p>
-          <p class="indent">人贵有自知之明。</p>
-          <p class="attr">—— 毛泽东南巡谈话纪要</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">中国的红色政权为什么能够存在</span>
+          <span class="entry-meta">1928年10月5日</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">一国之内，在四围白色政权的包围中，有一小块或若干小块红色政权的区域长期地存在，这是世界各国从来没有的事。这种奇事的发生，有其独特的原因。而其存在和发展，亦必有相当的条件。</p>
+          <p class="indent">它的发生不能在任何帝国主义的国家，也不能在任何帝国主义直接统治的殖民地，必然是在帝国主义间接统治的经济落后的半殖民地的中国。因为这种奇怪现象必定伴着另外一件奇怪现象，那就是白色政权之间的战争。帝国主义和国内买办豪绅阶级支持着的各派新旧军阀，从民国元年以来，相互间进行着继续不断的战争，这是半殖民地中国的特征之一。不但全世界帝国主义国家没有一国有这种现象，就是帝国主义直接统治的殖民地也没有一处有这种现象，仅仅帝国主义间接统治的中国这样的国家才有这种现象。这种现象产生的原因有两种，即地方的农业经济（不是统一的资本主义经济）和帝国主义划分势力范围的分裂剥削政策。因为有了白色政权间的长期的分裂和战争，便给了一种条件，使一小块或若干小块的共产党领导的红色区域，能够在四围白色政权包围的中间发生和坚持下来。湘赣边界的割据，就是这许多小块中间的一小块。有些同志在困难和危急的时候，往往怀疑这样的红色政权的存在，而发生悲观的情绪。这是没有找出这种红色政权所以发生和存在的正确的解释的缘故。我们只须知道中国白色政权的分裂和战争是继续不断的，则红色政权的发生、存在并且日益发展，便是无疑的了。</p>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于批林整风的指示</div>
-        <div class="entry-meta">1971年冬 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">首先是批林，其次才是整风。要认真看书学习，弄通马克思主义。</p>
-          <p class="attr">—— 毛泽东关于批林整风运动的指示</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">西江月·井冈山</span>
+          <span class="entry-meta">1928年秋</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">山下旌旗在望，</span>
+          <span class="poem-line">山头鼓角相闻。</span>
+          <span class="poem-line">敌军围困万千重，</span>
+          <span class="poem-line">我自岿然不动。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">早已森严壁垒，</span>
+          <span class="poem-line">更加众志成城。</span>
+          <span class="poem-line">黄洋界上炮声隆，</span>
+          <span class="poem-line">报道敌军宵遁。</span>
+        </div></div>
       </div>
-    </div>
-    <!-- 1972 -->
-    <div class="year-section" id="y1972">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1972 <small>深挖洞，广积粮，不称霸</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1929"><span class="y">1929</span><span class="ytag">古田会议</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于备战备荒的指示</div>
-        <div class="entry-meta">1972年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="quote">深挖洞，广积粮，不称霸。</p>
-          <p class="attr">—— 毛泽东关于备战备荒的指示</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">采桑子·重阳</span>
+          <span class="entry-meta">1929年10月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">人生易老天难老，岁岁重阳。</span>
+          <span class="poem-line">今又重阳，战地黄花分外香。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">一年一度秋风劲，不似春光。</span>
+          <span class="poem-line">胜似春光，寥廓江天万里霜。</span>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1930"><span class="y">1930</span><span class="ytag">星火燎原</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 会见美国总统尼克松时的谈话</div>
-        <div class="entry-meta">1972年2月 · 北京</div>
-        <div class="entry-body">
-          <p class="indent">我们两个国家，一个是大国，一个是中等国家。我们两边也都有一些共同的地方，就是不把自己的意见强加于人。我想，我们这次会晤，将是一个良好的开端。</p>
-          <p class="attr">—— 毛泽东会见尼克松时的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">星星之火，可以燎原</span>
+          <span class="entry-meta">1930年1月5日</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">在对于时局的估量和伴随而来的我们的行动问题上，我们党内有一部分同志还缺少正确的认识。他们虽然相信革命高潮不可避免地要到来，却不相信革命高潮有迅速到来的可能。因此他们不赞成争取江西的计划，而只赞成在福建、广东、江西之间的三个边界区域的流动游击，同时也没有通过游击战争去建立红色政权的深刻观念，因此也就没有用这种红色政权的巩固和扩大去促进全国革命高潮的深刻观念。他们似乎认为在距离革命高潮尚远的时期做这种建立政权的艰苦工作为徒劳，而希望用比较轻便的流动游击去扩大政治影响，等到全国各地争取群众的工作做好了，或做到某个地步了，然后再来一个全国武装起义，那时把红军的力量加上去，就成为全国范围的大革命。他们这种全国范围的、包括一切地方的、先争取群众后建立政权的理论，是于中国革命的实情不适合的。</p>
+          <p class="indent">他们的这种理论的来源，主要是没有把中国是一个许多帝国主义国家互相争夺的半殖民地这件事认清楚。如果认清了中国是一个许多帝国主义国家互相争夺的半殖民地，则一，就会明白全世界何以只有中国有这种统治阶级内部互相长期混战的怪事，而且何以混战一天激烈一天，一天扩大一天，何以始终不能有一个统一的政权。二，就会明白农民问题的严重性，因之，也就会明白农村起义何以有现在这样的全国规模的发展。三，就会明白工农民主政权这个口号的正确。四，就会明白红军、游击队和红色区域的建立和发展，是半殖民地中国在无产阶级领导之下的农民斗争的最高形式，和半殖民地农民斗争发展的必然结果；并且无疑义地是促进全国革命高潮的最重要因素。五，也就会明白单纯的流动游击政策，不能完成促进全国革命高潮的任务，而朱德毛泽东式、方志敏式之有根据地的，有计划地建设政权的，深入土地革命的，扩大人民武装的路线是经由乡赤卫队、区赤卫大队、县赤卫总队、地方红军直至正规红军这样一套办法的，政权发展是波浪式地向前扩大的，等等的政策，无疑义地是正确的。</p>
+          <p class="indent">必须这样，才能树立全国革命群众的信仰，如苏联之于全世界然。必须这样，才能给反动统治阶级以甚大的困难，动摇其基础而促进其内部的分解。也必须这样，才能真正地创造红军，成为将来大革命的主要工具。总而言之，必须这样，才能促进革命的高潮。</p>
+          <p class="indent">所谓革命高潮快要到来的"快要"二字作何解释，这点是许多同志的共同的问题。马克思主义者不是算命先生，未来的发展和变化，只应该也只能说出个大的方向，不应该也不可能机械地规定时日。但我所说的中国革命高潮快要到来，决不是如有些人所谓"有到来之可能"那样完全没有行动意义的、可望而不可即的一种空的东西。它是站在海岸遥望海中已经看得见桅杆尖头了的一只航船，它是立于高山之巅远看东方已见光芒四射喷薄欲出的一轮朝日，它是躁动于母腹中的快要成熟了的一个婴儿。</p>
+        </div></div>
       </div>
-    </div>
-    <!-- 1973 -->
-    <div class="year-section" id="y1973">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1973 <small>批林批孔</small></div>
-      <div class="year-rule"></div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于批林批孔运动的指示</div>
-        <div class="entry-meta">1973年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">要批判孔子的反动思想。林彪同国民党一样，都是"尊孔反法"的。历史上法家是进步的，儒家是反动的。要支持法家，批判儒家。</p>
-          <p class="attr">—— 毛泽东关于批林批孔运动的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">如梦令·元旦</span>
+          <span class="entry-meta">1930年1月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">宁化、清流、归化，</span>
+          <span class="poem-line">路隘林深苔滑。</span>
+          <span class="poem-line">今日向何方，</span>
+          <span class="poem-line">直指武夷山下。</span>
+          <span class="poem-line">山下山下，</span>
+          <span class="poem-line">风展红旗如画。</span>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1931"><span class="y">1931</span><span class="ytag">反围剿</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于邓小平复出的指示</div>
-        <div class="entry-meta">1973年3月 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">邓小平同志是战犯。他打了那么多仗，有战功嘛。他比较有经验，有能力。我看可以请他出来工作，当个副总理。</p>
-          <p class="attr">—— 毛泽东关于邓小平复出的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">渔家傲·反第一次大"围剿"</span>
+          <span class="entry-meta">1931年春</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">万木霜天红烂漫，天兵怒气冲霄汉。</span>
+          <span class="poem-line">雾满龙冈千嶂暗，齐声唤，前头捉了张辉瓒。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">二十万军重入赣，风烟滚滚来天半。</span>
+          <span class="poem-line">唤起工农千百万，同心干，不周山下红旗乱。</span>
+        </div></div>
       </div>
+
+      <div class="year-header" data-year="1933"><span class="y">1933</span><span class="ytag">苏区岁月</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge poem">诗词</span> 七律·读《封建论》呈郭老</div>
-        <div class="entry-meta">1973年 · 毛泽东</div>
-        <div class="entry-body">
-          <span class="poem-line">劝君少骂秦始皇，焚坑事业要商量。</span>
-          <span class="poem-line">祖龙魂死秦犹在，孔学名高实秕糠。</span>
-          <span class="poem-line">百代都行秦政法，十批不是好文章。</span>
-          <span class="poem-line">熟读唐人封建论，莫从子厚返文王。</span>
-          <p class="attr">—— 作于1973年，评郭沫若《十批判书》</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">菩萨蛮·大柏地</span>
+          <span class="entry-meta">1933年夏</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">赤橙黄绿青蓝紫，谁持彩练当空舞？</span>
+          <span class="poem-line">雨后复斜阳，关山阵阵苍。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">当年鏖战急，弹洞前村壁。</span>
+          <span class="poem-line">装点此关山，今朝更好看。</span>
+        </div></div>
       </div>
-    </div>
-    <!-- 1974 -->
-    <div class="year-section" id="y1974">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1974 <small>三个世界划分</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1934"><span class="y">1934</span><span class="ytag">长征前夕</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于三个世界划分的理论</div>
-        <div class="entry-meta">1974年2月22日 · 毛泽东会见赞比亚总统卡翁达</div>
-        <div class="entry-body">
-          <p class="quote">我看美国、苏联是第一世界。中间派，日本、欧洲、澳大利亚、加拿大，是第二世界。咱们是第三世界。</p>
-          <p class="indent">第三世界人口很多。亚洲除了日本，都是第三世界。整个非洲都是第三世界，拉丁美洲也是第三世界。</p>
-          <p class="attr">—— 毛泽东会见卡翁达时的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">清平乐·会昌</span>
+          <span class="entry-meta">1934年夏</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">东方欲晓，莫道君行早。</span>
+          <span class="poem-line">踏遍青山人未老，风景这边独好。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">会昌城外高峰，颠连直接东溟。</span>
+          <span class="poem-line">战士指看南粤，更加郁郁葱葱。</span>
+        </div></div>
       </div>
+    </section>
+    <section class="period-section" id="p2" data-period="2">
+      <div class="period-head">
+        <div class="pn">延安革命 <small>1935 – 1948</small></div>
+        <div class="pr"></div>
+      </div>
+      <div class="year-header" data-year="1935"><span class="y">1935</span><span class="ytag">长征</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge poem">诗词</span> 贺新郎·读史</div>
-        <div class="entry-meta">1974年发表 · 毛泽东</div>
-        <div class="entry-body">
-          <span class="poem-line">人猿相揖别。只几个石头磨过，小儿时节。</span>
-          <span class="poem-line">铜铁炉中翻火焰，为问何时猜得？不过几千寒热。</span>
-          <span class="poem-line">人世难逢开口笑，上疆场彼此弯弓月。流遍了，郊原血。</span>
-          <span class="poem-line">一篇读罢头飞雪，但记得斑斑点点，几行陈迹。</span>
-          <span class="poem-line">五帝三皇神圣事，骗了无涯过客。有多少风流人物？</span>
-          <span class="poem-line">盗跖庄蹻流誉后，更陈王奋起挥黄钺。歌未竞，东方白。</span>
-          <p class="attr">—— 1974年经毛泽东审定后发表</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">忆秦娥·娄山关</span>
+          <span class="entry-meta">1935年2月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">西风烈，</span>
+          <span class="poem-line">长空雁叫霜晨月。</span>
+          <span class="poem-line">霜晨月，马蹄声碎，喇叭声咽。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">雄关漫道真如铁，</span>
+          <span class="poem-line">而今迈步从头越。</span>
+          <span class="poem-line">从头越，苍山如海，残阳如血。</span>
+        </div></div>
       </div>
-    </div>
-    <!-- 1975 -->
-    <div class="year-section" id="y1975">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1975 <small>安定团结与三项指示</small></div>
-      <div class="year-rule"></div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于安定团结的指示</div>
-        <div class="entry-meta">1975年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="quote">要安定团结。</p>
-          <p class="quote">要把国民经济搞上去。</p>
-          <p class="indent">无产阶级文化大革命已经八年了，现在以安定团结为好。全党全军要团结。</p>
-          <p class="attr">—— 毛泽东关于安定团结的指示</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·长征</span>
+          <span class="entry-meta">1935年10月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">红军不怕远征难，万水千山只等闲。</span>
+          <span class="poem-line">五岭逶迤腾细浪，乌蒙磅礴走泥丸。</span>
+          <span class="poem-line">金沙水拍云崖暖，大渡桥横铁索寒。</span>
+          <span class="poem-line">更喜岷山千里雪，三军过后尽开颜。</span>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于学习理论、反修防修的指示</div>
-        <div class="entry-meta">1975年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">列宁为什么说对资产阶级专政，这个问题要搞清楚。这个问题不搞清楚，就会变修正主义。要使全国知道。</p>
-          <p class="attr">—— 毛泽东关于理论问题的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">沁园春·雪</span>
+          <span class="entry-meta">1936年2月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">北国风光，千里冰封，万里雪飘。</span>
+          <span class="poem-line">望长城内外，惟余莽莽；大河上下，顿失滔滔。</span>
+          <span class="poem-line">山舞银蛇，原驰蜡象，欲与天公试比高。</span>
+          <span class="poem-line">须晴日，看红装素裹，分外妖娆。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">江山如此多娇，引无数英雄竞折腰。</span>
+          <span class="poem-line">惜秦皇汉武，略输文采；唐宗宋祖，稍逊风骚。</span>
+          <span class="poem-line">一代天骄，成吉思汗，只识弯弓射大雕。</span>
+          <span class="poem-line">俱往矣，数风流人物，还看今朝。</span>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">指示</span> 关于评《水浒》的指示</div>
-        <div class="entry-meta">1975年8月 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">《水浒》这部书，好就好在投降。做反面教材，使人民都知道投降派。《水浒》只反贪官，不反皇帝。宋江投降，搞修正主义，把晁的聚义厅改为忠义堂，让人招安了。</p>
-          <p class="attr">—— 毛泽东关于《水浒》的谈话</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">遵义会议</span>
+          <span class="entry-meta">1935年1月</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">一九三五年一月，中共中央在贵州遵义召开政治局扩大会议。会议批评了第五次反"围剿"和长征初期军事指挥上的错误，确立了毛泽东在红军和党中央的领导地位，在极其危急的关头挽救了党、挽救了红军、挽救了中国革命。遵义会议是中国共产党历史上一个生死攸关的转折点。</p>
+        </div></div>
       </div>
-    </div>
-    <!-- 1976 -->
-    <div class="year-section" id="y1976">
-      <span class="year-anchor"></span>
-      <div class="year-heading">1976 <small>最后的诗词与遗训</small></div>
-      <div class="year-rule"></div>
+
+      <div class="year-header" data-year="1937"><span class="y">1937</span><span class="ytag">哲学著作</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge poem">诗词</span> 水调歌头·重上井冈山</div>
-        <div class="entry-meta">1965年5月作 · 1976年1月《诗刊》发表</div>
-        <div class="entry-body">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">实践论</span>
+          <span class="entry-meta">1937年7月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">马克思以前的唯物论，离开人的社会性，离开人的历史发展，去观察认识问题，因此不能了解认识对社会实践的依赖关系，即认识对生产和阶级斗争的依赖关系。</p>
+          <p class="indent">首先，马克思主义者认为人类的生产活动是最基本的实践活动，它决定其他一切活动。人的认识，主要地依赖于物质的生产活动，逐渐地了解自然的现象、自然的性质、自然的规律性、人和自然的关系；而且经过生产活动，也在各种不同程度上逐渐地认识了人和人的一定的相互关系。一切这些知识，离开生产活动是不能得到的。</p>
+          <p class="indent">马克思主义者认为人类社会的生产活动，是一步又一步地由低级向高级发展，因此，人们的认识，不论对于自然界方面，对于社会方面，也都是一步又一步地由低级向高级发展，即由浅入深，由片面到更多的方面。在很长的历史时期内，大家对于社会的历史只能限于片面的了解，这一方面是由于剥削阶级的偏见经常歪曲社会的历史，另一方面，则由于生产规模的狭小，限制了人们的眼界。人们能够对于社会历史的发展作全面的历史的了解，把对于社会的认识变成了科学，这只是到了伴随巨大生产力——大工业而出现近代无产阶级的时候，这就是马克思主义的科学。</p>
+          <p class="indent">马克思主义者认为，只有人们的社会实践，才是人们对于外界认识的真理性的标准。实际的情形是这样的，只有在社会实践过程中（物质生产过程中，阶级斗争过程中，科学实验过程中），人们达到了思想中所预想的结果时，人们的认识才被证实了。人们要想得到工作的胜利即得到预想的结果，一定要使自己的思想合于客观外界的规律性，如果不合，就会在实践中失败。人们经过失败之后，也就从失败取得教训，改正自己的思想使之适合于外界的规律性，人们就能变失败为胜利，所谓"失败者成功之母"，"吃一堑长一智"，就是这个道理。</p>
+          <p class="indent">辩证唯物论的认识论把实践提到第一的地位，认为人的认识一点也不能离开实践，排斥一切否认实践重要性、使认识离开实践的错误理论。列宁这样说过："实践高于（理论的）认识，因为它不但有普遍性的品格，而且还有直接现实性的品格。"马克思主义的哲学辩证唯物论有两个最显著的特点：一个是它的阶级性，公然申明辩证唯物论是为无产阶级服务的；再一个是它的实践性，强调理论对于实践的依赖关系，理论的基础是实践，又转过来为实践服务。</p>
+          <p class="indent">认识的过程，第一步，是开始接触外界事情，属于感觉的阶段。第二步，是综合感觉的材料加以整理和改造，属于概念、判断和推理的阶段。只有感觉的材料十分丰富（不是零碎不全）和合于实际（不是错觉），才能根据这样的材料造出正确的概念和论理来。</p>
+          <p class="indent">这里有两个要点必须着重指明。第一个，在前面已经说过的，这里再重复说一说，就是理性认识依赖于感性认识的问题。如果以为理性认识可以不从感性认识得来，他就是一个唯心论者。理性认识依赖于感性认识，感性认识有待于发展到理性认识，这就是辩证唯物论的认识论。第二个，认识有待于深化，认识的感性阶段有待于发展到理性阶段——这就是认识论的辩证法。感觉到了的东西，我们不能立刻理解它，只有理解了的东西才更深刻地感觉它。感觉只解决现象问题，理论才解决本质问题。</p>
+          <p class="indent">通过实践而发现真理，又通过实践而证实真理和发展真理。从感性认识而能动地发展到理性认识，又从理性认识而能动地指导革命实践，改造主观世界和客观世界。实践、认识、再实践、再认识，这种形式，循环往复以至无穷，而实践和认识之每一循环的内容，都比较地进到了高一级的程度。这就是辩证唯物论的全部认识论，这就是辩证唯物论的知行统一观。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">矛盾论</span>
+          <span class="entry-meta">1937年8月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">事物的矛盾法则，即对立统一的法则，是唯物辩证法的最根本的法则。列宁说："就本来的意义讲，辩证法是研究对象的本质自身中的矛盾。"列宁常称这个法则为辩证法的本质，又称之为辩证法的核心。因此，我们在研究这个法则时，不得不涉及广泛的方面，不得不涉及许多的哲学问题。如果我们将这些问题都弄清楚了，我们就在根本上懂得了唯物辩证法。</p>
+          <p class="indent">矛盾存在于一切事物发展的过程中，矛盾贯穿于每一事物发展过程的始终，这是矛盾的普遍性和绝对性。矛盾着的事物及其每一个侧面各有其特点，这构成矛盾的特殊性和相对性。矛盾着的事物依一定的条件有同一性，因此能够共居于一个统一体中，又能够互相转化到相反的方面去，这以条件的具备为转移。矛盾着的方面，其发展是不平衡的，有时候似乎势均力敌，然而这只是暂时的和相对的情形，基本的形态则是不平衡。矛盾着的两方面中，必有一方面是主要的，他方面是次要的。其主要的方面，即所谓矛盾起主导作用的方面。事物的性质，主要地是由取得支配地位的矛盾的主要方面所规定的。然而这种情形不是固定的，矛盾的主要和非主要的方面互相转化着，事物的性质也就随着起变化。在矛盾发展的一定过程或一定阶段上，主要方面属于甲方，非主要方面属于乙方；到了另一发展阶段或另一发展过程时，就互易其位置，这是依靠事物发展中矛盾双方斗争的力量的增减程度来决定的。</p>
+          <p class="indent">我们常常说"新陈代谢"这句话。新陈代谢是宇宙间普遍的永远不可抵抗的规律。依事物本身的性质和条件，经过不同的飞跃形式，一事物转化为他事物，就是新陈代谢的过程。任何事物的内部都有其新旧两个方面的矛盾，形成为一系列的曲折的斗争。斗争的结果，新的方面由小变大，上升为支配的东西；旧的方面则由大变小，变成逐步归于灭亡的东西。而一当新的方面对于旧的方面取得支配地位的时候，旧事物的性质就变化为新事物的性质。由此可见，事物的性质主要地是由取得支配地位的矛盾的主要方面所规定的。取得支配地位的矛盾的主要方面起了变化，事物的性质也就随着起变化。</p>
+          <p class="indent">在矛盾特殊性的问题中，还有两种情形必须特别地提出来加以分析，这就是主要的矛盾和主要的矛盾方面。在复杂的事物的发展过程中，有许多的矛盾存在，其中必有一种是主要的矛盾，由于它的存在和发展，规定或影响着其他矛盾的存在和发展。任何过程如果有多数矛盾存在的话，其中必定有一种是主要的，起着领导的、决定的作用，其他则处于次要和服从的地位。因此，研究任何过程，如果是存在着两个以上矛盾的复杂过程的话，就要用全力找出它的主要矛盾。捉住了这个主要矛盾，一切问题就迎刃而解了。</p>
+          <p class="indent">矛盾的诸方面，其发展是不平衡的。有时候似乎势均力敌，然而这只是暂时的和相对的情形，基本的形态则是不平衡。矛盾着的两方面中，必有一方面是主要的，他方面是次要的。其主要的方面，即所谓矛盾起主导作用的方面。事物的性质，主要地是由取得支配地位的矛盾的主要方面所规定的。然而这种情形不是固定的，矛盾的主要和非主要的方面互相转化着，事物的性质也就随着起变化。</p>
+          <p class="indent">对抗是矛盾斗争的一种形式，而不是矛盾斗争的一切形式。在人类历史中，存在着阶级的对抗，这是矛盾斗争的一种特殊的表现。剥削阶级和被剥削阶级之间的矛盾，无论在奴隶社会也好，封建社会也好，资本主义社会也好，互相矛盾着的两阶级，长期地并存于一个社会中，它们互相斗争着，但要待两阶级的矛盾发展到了一定的阶段的时候，双方才取外部对抗的形式，发展为革命。从资本主义过渡到社会主义，需要经过无产阶级革命，这是因为资产阶级不会自动退出历史舞台，无产阶级必须通过暴力革命推翻资产阶级的统治，建立自己的政权。</p>
+          <p class="indent">事物发展的根本原因，不是在事物的外部而是在事物的内部，在于事物内部的矛盾性。任何事物内部都有这种矛盾性，因此引起了事物的运动和发展。事物内部的这种矛盾性是事物发展的根本原因，一事物和他事物的互相联系和互相影响则是事物发展的第二位的原因。这样，唯物辩证法就有力地反对了形而上学的机械唯物论和庸俗进化论的外因论或被动论。这是清楚的，单纯的外部原因只能引起事物的机械的运动，即范围的大小，数量的增减，不能说明事物何以有性质上的千差万别及其互相变化。事实上，即使是外力推动的机械运动，也要通过事物内部的矛盾性。植物和动物的单纯的增长，数量的发展，主要的也是由于内部矛盾所引起的。社会的发展，主要地不是由于外因而是由于内因。许多国家在差不多一样的地理和气候的条件下，它们发展的差异性和不平衡性，非常之大。同一个国家吧，在地理和气候并没有变化的情形下，社会的变化却是很大的。帝国主义的俄国变为社会主义的苏联，封建的闭关锁国的日本变为帝国主义的日本，这些国家的地理和气候并没有变化。长期地被封建制度统治的中国，近百年来发生了很大的变化，现在正在变化到一个自由解放的新中国的方向去，中国的地理和气候并没有变化。整个地球及地球各部分的地理和气候也是变化着的，但以它们的变化和社会的变化相比较，则显得很微小，前者是以若干万年为单位而显现其变化的，后者则在几千年、几百年、几十年、甚至几年或几个月（在革命时期）内就显现其变化了。</p>
+          <p class="indent">按照辩证唯物论的观点看来，矛盾存在于一切客观事物和主观思维的过程中，矛盾贯串于一切过程的始终，这是矛盾的普遍性和绝对性。矛盾着的事物及其每一个侧面各有其特点，这是矛盾的特殊性和相对性。矛盾着的事物依一定的条件有同一性，因此能够共居于一个统一体中，又能够互相转化到相反的方面去，这以条件的具备为转移。列宁说："辩证法本来就是这样一种学说：研究对立怎样能够同一，又怎样成为同一的，——在什么条件下它们是同一的，互相转化的，——为什么人的头脑不应当把这些对立看作死的、凝固的东西，而应当看作生动的、有条件的、可变动的、互相转化的东西。"</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1938"><span class="y">1938</span><span class="ytag">持久战</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">论持久战</span>
+          <span class="entry-meta">1938年5月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">问题的提起。卢沟桥事变以来，四万万人一齐努力，最后胜利是中国的。这样一种说法，在广大的人们中间是相当流行的。然而有人说，例如，某些资产阶级的学者和某些国民党的领袖们，他们说："中国武器不如人，战必败。"也有人说："如果抗战，必会作阿比西尼亚。"因此，中国会不会亡？抗战能不能胜利？能不能速胜？——这就是问题的焦点。</p>
+          <p class="indent">我们根据客观事实，指出只有战略的持久战才是争取最后胜利的唯一途径。而速胜论是不对的，亡国论也是不对的。中日战争不是任何别的战争，乃是半殖民地半封建的中国和帝国主义的日本之间在二十世纪三十年代进行的一个决死的战争。全部问题的根据就在这里。</p>
+          <p class="indent">日本方面：它是一个强的帝国主义国家，它的军力、经济力和政治组织力在东方是一等的，在世界也是五六个著名帝国主义国家中的一个。这是日本侵略战争的基本条件。然而，日本国度比较地小，其人力、军力、财力、物力均感缺乏，经不起长期的战争。日本统治者想从战争中解决这个困难问题，但战争将加速其解决，而不是有利于它。日本是一个带军事封建性的帝国主义这一特点，产生了它的战争的特质的野蛮性，这种野蛮性将最大限度地激起它国内的阶级对立、日本民族和中国民族的对立、日本和世界大多数国家的对立。日本战争的退步性和野蛮性是日本战争必然失败的主要根据。日本虽能得到国际法西斯国家的援助，但同时，却又不能不遇到一个超过其国际援助力量的国际反对力量。这后一种力量将逐渐地增长，终究不但将把前者的援助力量抵消，并将施其压迫于日本自身。因此，日本不能横行到底。</p>
+          <p class="indent">中国方面：中国是一个半殖民地半封建的国家，是一个弱国，在军力、经济力和政治组织力各方面都显得不如敌人。这是战争不可避免和不能速胜的基本根据。然而，中国又是一个很大的国家，地大、物博、人多、兵多，能够支持长期的战争。中国共产党及其领导下的军队，就是这种进步因素的代表。中国今天的解放战争，是在历史上进步的时代进行的，这是中国能够支持长期战争和取得最后胜利的主要根据。中国战争的进步性，产生了中国战争的正义性。因为这个战争是正义的，就能唤起全国的团结，激起敌国人民的同情，争取世界多数国家的援助。</p>
+          <p class="indent">结论是什么呢？结论是：中国会亡吗？不会，最后胜利是中国的。中国能够速胜吗？不能，抗日战争是持久战。为什么是持久战？因为中日战争是半殖民地半封建的中国和帝国主义的日本之间在二十世纪三十年代进行的一个决死的战争。一方面，敌强我弱，这一特点决定了战争的长期性和残酷性，决定了速胜论是错误的；另一方面，敌小我大，敌退步我进步，敌寡助我多助，这就决定了最后胜利是中国的，亡国论是错误的。</p>
+          <p class="indent">武器是战争的重要的因素，但不是决定的因素，决定的因素是人不是物。力量对比不但是军力和经济力的对比，而且是人力和人心的对比。军力和经济力是要人去掌握的。战争是政治的继续，战争是流血的政治。因此，政治动员是争取战争胜利的最基本条件。广泛的热烈的政治动员，是争取最后胜利的唯一正确的道路。</p>
+          <p class="indent">抗日战争是持久战，最后胜利是中国的——这就是我们的结论。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1940"><span class="y">1940</span><span class="ytag">新民主主义</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">新民主主义论</span>
+          <span class="entry-meta">1940年1月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">中国向何处去？我们要建立一个新中国。我们共产党人，多年以来，不但为中国的政治革命和经济革命而奋斗，而且为中国的文化革命而奋斗；一切这些的目的，在于建设一个中华民族的新社会和新国家。</p>
+          <p class="indent">中国革命的历史进程，必须分为两步，其第一步是民主主义的革命，其第二步是社会主义的革命，这是性质不同的两个革命过程。而所谓民主主义，现在已不是旧范畴的民主主义，已不是旧民主主义，而是新范畴的民主主义，而是新民主主义。</p>
+          <p class="indent">由此可以断言，所谓中华民族的新政治，就是新民主主义的政治；所谓中华民族的新经济，就是新民主主义的经济；所谓中华民族的新文化，就是新民主主义的文化。</p>
+          <p class="indent">新民主主义的政治。在中国，事情非常明白，谁能领导人民推翻帝国主义和封建势力，谁就能取得人民的信仰。历史已经证明：中国资产阶级是不能尽此责任的，这个责任就不得不落在无产阶级的肩上了。所以，现在所要建立的中华民主共和国，只能是在无产阶级领导下的一切反帝反封建的人们联合专政的民主共和国，这就是新民主主义的共和国。</p>
+          <p class="indent">新民主主义的经济。大银行、大工业、大商业，归国家所有。在无产阶级领导下的新民主主义共和国的国营经济是社会主义的性质，是整个国民经济的领导力量。但这个共和国并不没收其他资本主义的私有财产，并不禁止"不能操纵国民生计"的资本主义生产的发展。这个共和国将采取某种必要的方法，没收地主的土地，分配给无地和少地的农民，实行中山先生"耕者有其田"的口号，扫除农村中的封建关系，把土地变为农民的私产。农村的富农经济，也是容许其存在的。这就是"平均地权"的方针。在这个阶段上，一般地还不是建立社会主义的农业，但"耕者有其田"的实现，将引导农民走向社会主义。</p>
+          <p class="indent">新民主主义的文化。一定的文化是一定社会的政治和经济在观念形态上的反映。在中国，有帝国主义文化，又有半封建文化。反映半封建政治和半封建经济的东西，就是半封建文化。至于新文化，则是在观念形态上反映新政治和新经济的东西，是替新政治新经济服务的。所谓新民主主义的文化，就是无产阶级领导的人民大众的反帝反封建的文化。这种文化，只能由无产阶级的文化思想即共产主义思想去领导，任何别的阶级的文化思想都是不能领导了的。所谓新民主主义的文化，一句话，就是民族的科学的大众的文化。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1942"><span class="y">1942</span><span class="ytag">延安文艺</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">在延安文艺座谈会上的讲话</span>
+          <span class="entry-meta">1942年5月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">同志们！今天邀集大家来开座谈会，目的是要和大家交换意见，研究文艺工作和一般革命工作的关系，求得革命文艺的正确发展，求得革命文艺对其他革命工作的更好的协助，借以打倒我们民族的敌人，完成民族解放的任务。</p>
+          <p class="indent">为什么人的问题，是一个根本的问题，原则的问题。我们的文学艺术都是为人民大众的，首先是为工农兵的，为工农兵而创作，为工农兵所利用的。我们知识分子出身的文艺工作者，要使自己的作品为群众所欢迎，就得把自己的思想感情来一个变化，来一番改造。没有这个变化，没有这个改造，什么事情都是做不好的，都是格格不入的。</p>
+          <p class="indent">什么是人民大众呢？最广大的人民，占全人口百分之九十以上的人民，是工人、农民、兵士和城市小资产阶级。所以我们的文艺，第一是为工人的，这是领导革命的阶级。第二是为农民的，他们是革命中最广大最坚决的同盟军。第三是为武装起来了的工人农民即八路军、新四军和其他人民武装队伍的，这是革命战争的主力。第四是为城市小资产阶级劳动群众和知识分子的，他们也是革命的同盟者，他们是能够长期地和我们合作的。这四种人，就是中华民族的最大部分，就是最广大的人民大众。</p>
+          <p class="indent">我们的文艺工作者需要做自己的文艺工作，但是这个了解人熟悉人的工作却是第一位的工作。我们的文艺工作者对于这些，以前是一种什么情形呢？我说以前是不熟，不懂，英雄无用武之地。什么是不熟？人不熟。文艺工作者同自己的描写对象和作品接受者不熟，或者简直生疏得很。我们的文艺工作者不熟悉工人，不熟悉农民，不熟悉士兵，也不熟悉他们的干部。什么是不懂？语言不懂。不但懂得群众语言，对于人民群众的丰富的生动的语言，缺乏充分的知识。许多文艺工作者由于自己脱离群众、生活空虚，当然也就不熟悉人民的语言，因此他们的作品不但显得语言无味，而且里面常常夹着一些生造出来的和人民的语言相对立的不三不四的词句。许多同志爱说"大众化"，但是什么叫做大众化呢？就是我们的文艺工作者的思想感情和工农兵大众的思想感情打成一片。而要打成一片，就应当认真学习群众的语言。如果连群众的语言都有许多不懂，还讲什么文艺创造呢？</p>
+          <p class="indent">中国的革命的文学家艺术家，有出息的文学家艺术家，必须到群众中去，必须长期地无条件地全心全意地到工农兵群众中去，到火热的斗争中去，到唯一的最广大最丰富的源泉中去，观察、体验、研究、分析一切人，一切阶级，一切群众，一切生动的生活形式和斗争形式，一切文学和艺术的原始材料，然后才有可能进入创作过程。否则你的劳动就没有对象，你就只能做鲁迅在他的遗嘱里所谆谆嘱咐他的儿子万不可做的那种空头文学家，或空头艺术家。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1944"><span class="y">1944</span><span class="ytag">为人民服务</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">为人民服务</span>
+          <span class="entry-meta">1944年9月8日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">我们的共产党和共产党所领导的八路军、新四军，是革命的队伍。我们这个队伍完全是为着解放人民的，是彻底地为人民的利益工作的。张思德同志就是我们这个队伍中的一个同志。</p>
+          <p class="indent">人总是要死的，但死的意义有不同。中国古时候有个文学家叫做司马迁的说过："人固有一死，或重于泰山，或轻于鸿毛。"为人民利益而死，就比泰山还重；替法西斯卖力，替剥削人民和压迫人民的人去死，就比鸿毛还轻。张思德同志是为人民利益而死的，他的死是比泰山还要重的。</p>
+          <p class="indent">因为我们是为人民服务的，所以，我们如果有缺点，就不怕别人批评指出。不管是什么人，谁向我们指出都行。只要你说得对，我们就改正。你说的办法对人民有好处，我们就照你的办。"精兵简政"这一条意见，就是党外人士李鼎铭先生提出来的；他提得好，对人民有好处，我们就采用了。只要我们为人民的利益坚持好的，为人民的利益改正错的，我们这个队伍就一定会兴旺起来。</p>
+          <p class="indent">我们都是来自五湖四海，为了一个共同的革命目标，走到一起来了。我们还要和全国大多数人民走这一条路。我们今天已经领导着有九千一百万人口的根据地，但是还不够，还要更大些，才能取得全民族的解放。我们的同志在困难的时候，要看到成绩，要看到光明，要提高我们的勇气。中国人民正在受难，我们有责任解救他们，我们要努力奋斗。要奋斗就会有牺牲，死人的事是经常发生的。但是我们想到人民的利益，想到大多数人民的痛苦，我们为人民而死，就是死得其所。不过，我们应当尽量地减少那些不必要的牺牲。我们的干部要关心每一个战士，一切革命队伍的人都要互相关心，互相爱护，互相帮助。</p>
+          <p class="indent">今后我们的队伍里，不管死了谁，不管是炊事员，是战士，只要他是做过一些有益的工作的，我们都要给他送葬，开追悼会。这要成为一个制度。这个方法也要介绍到老百姓那里去。村上的人死了，开个追悼会。用这样的方法，寄托我们的哀思，使整个人民团结起来。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1945"><span class="y">1945</span><span class="ytag">七大</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">愚公移山</span>
+          <span class="entry-meta">1945年6月11日 · 中共七大闭幕词</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">我们开了一个很好的大会。我们做了三件事：第一，决定了党的路线，这就是放手发动群众，壮大人民力量，在我党的领导下，打败日本侵略者，解放全国人民，建立一个新民主主义的中国。第二，通过了新的党章。第三，选举了党的领导机关——中央委员会。今后的任务就是领导全党实现党的路线。</p>
+          <p class="indent">我们宣传大会的路线，就是要使全党和全国人民建立起一个信心，即革命一定要胜利。首先要使先锋队觉悟，下定决心，不怕牺牲，排除万难，去争取胜利。但这还不够，还必须使全国广大人民群众觉悟，甘心情愿和我们一起奋斗，去争取胜利。要使全国人民有这样的信心：中国是中国人民的，不是反动派的。中国古代有个寓言，叫做"愚公移山"。说的是古代有一位老人，住在华北，名叫北山愚公。他的家门南面有两座大山挡住他家的出路，一座叫做太行山，一座叫做王屋山。愚公下决心率领他的儿子们要用锄头挖去这两座大山。有个名叫智叟的老头子看了发笑，说是你们这样干未免太愚蠢了，你们父子数人要挖掉这样两座大山是完全不可能的。愚公回答说：我死了以后有我的儿子，儿子死了，又有孙子，子子孙孙是没有穷尽的。这两座山虽然很高，却是不会再增高了，挖一点就会少一点，为什么挖不平呢？愚公批驳了智叟的错误思想，毫不动摇，每天挖山不止。这件事感动了上帝，他就派了两个神仙下凡，把两座山背走了。现在也有两座压在中国人民头上的大山，一座叫做帝国主义，一座叫做封建主义。中国共产党早就下了决心，要挖掉这两座山。我们一定要坚持下去，一定要不断地工作，我们也会感动上帝的。这个上帝不是别人，就是全中国的人民大众。全国人民大众一齐起来和我们一道挖这两座山，有什么挖不平呢？</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">论联合政府</span>
+          <span class="entry-meta">1945年4月24日 · 中共七大政治报告</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">我们共产党人，多年以来，不但为中国的政治革命和经济革命而奋斗，而且为中国的文化革命而奋斗；一切这些的目的，在于建设一个中华民族的新社会和新国家。在这个新社会和新国家中，不但有新政治、新经济，而且有新文化。这就是说，我们不但要把一个政治上受压迫、经济上受剥削的中国，变为一个政治上自由和经济上繁荣的中国，而且要把一个被旧文化统治因而愚昧落后的中国，变为一个被新文化统治因而文明先进的中国。一句话，我们要建立一个新中国。</p>
+          <p class="indent">中国一切政党的政策及其实践在中国人民中所表现的作用的好坏、大小，归根到底，看它对于中国人民的生产力的发展是否有帮助及其帮助之大小，看它是束缚生产力的，还是解放生产力的。</p>
+          <p class="indent">我们主张在彻底地打败日本侵略者之后，建立一个以全国绝对大多数人民为基础而在工人阶级领导之下的统一战线的民主联盟的国家制度，我们把这样的国家制度称之为新民主主义的国家制度。这是一个真正适合中国人口中最大多数的要求的国家制度，因为，第一，它取得了和可能取得数百万产业工人，数千万手工业工人和雇佣农民的同意；其次，也取得了和可能取得占中国人口百分之八十，即在四亿五千万人口中占了三亿六千万的农民阶级的同意；又其次，也取得了和可能取得广大的城市小资产阶级、民族资产阶级、开明士绅及其他爱国分子的同意。自然，这些阶级之间仍然是有矛盾的，例如劳资之间的矛盾，就是显著的一种；因此，这个国家制度并不可能使各阶级得到完全的满足，但是，它是在现阶段的中国最能为广大人民所接受的国家制度。</p>
+          <p class="indent">总之，我们应该学习，再学习，团结，再团结。全中国共产党和全国人民团结起来，一定要达到我们的目的——打败侵略者，建设新中国。</p>
+        </div></div>
+      </div>
+    </section>
+    <section class="period-section" id="p3" data-period="3">
+      <div class="period-head">
+        <div class="pn">建国后 <small>1949 – 1956</small></div>
+        <div class="pr"></div>
+      </div>
+      <div class="year-header" data-year="1949"><span class="y">1949</span><span class="ytag">开国</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·人民解放军占领南京</span>
+          <span class="entry-meta">1949年4月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">钟山风雨起苍黄，百万雄师过大江。</span>
+          <span class="poem-line">虎踞龙盘今胜昔，天翻地覆慨而慷。</span>
+          <span class="poem-line">宜将剩勇追穷寇，不可沽名学霸王。</span>
+          <span class="poem-line">天若有情天亦老，人间正道是沧桑。</span>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">中国人民站起来了</span>
+          <span class="entry-meta">1949年9月21日 · 全国政协一届开幕词</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">诸位代表先生们，全国人民所渴望的政治协商会议现在开幕了。</p>
+          <p class="indent">我们的会议包括六百多位代表，代表着全中国所有的民主党派、人民团体、人民解放军、各地区、各民族和国外华侨。这就指明，我们的会议是一个全国人民大团结的会议。</p>
+          <p class="indent">这种全国人民大团结之所以能够成功，是因为我们战胜了美国帝国主义所援助的国民党反动政府。在三年多的时间内，英勇的世界上少有的中国人民解放军，战胜了美国援助的国民党反动政府所有的数百万军队的进攻，并使自己转入反攻和进攻。现在，数百万人民解放军的野战军已经打到接近台湾、广东、广西、贵州、四川和新疆的地区去了，中国人民的大多数已经获得了解放。在三年多的时间内，全国人民团结起来，援助人民解放军，反对了自己的敌人，取得了基本的胜利。在这个基础上，召开了今天的人民政治协商会议。</p>
+          <p class="indent">我们的会议之所以称为政治协商会议，是因为三年以前我们曾和蒋介石国民党一道开过一次政治协商会议。那次会议的结果是被蒋介石国民党及其帮凶们破坏了，但是已在人民中留下了不可磨灭的印象。那次会议证明，和帝国主义的走狗蒋介石国民党及其帮凶们一道，是不能解决任何有利于人民的任务的。即使勉强地做了决议也是无益的，一待时机成熟他们就要撕毁一切决议，并以残酷的战争反对人民。那次会议的唯一收获是给了人民以深刻的教育，使人民懂得：和帝国主义的走狗蒋介石国民党及其帮凶们决无妥协的余地，或者是推翻这些敌人，或者是被这些敌人所屠杀和压迫，二者必居其一，其他的道路是没有的。中国人民在中国共产党的领导之下，在三年多的时间内，很快地觉悟起来，并且把自己组织起来，形成了全国规模的反对帝国主义、封建主义、官僚资本主义及其集中的代表者国民党反动政府的统一战线，援助人民解放军，取得了基本的胜利。</p>
+          <p class="indent">现在的中国人民政治协商会议是在完全新的基础之上召开的，它具有代表全国人民的性质，它获得全国人民的信任和拥护。因此，中国人民政治协商会议宣布自己执行全国人民代表大会的职权。中国人民政治协商会议在自己的议程中将要制定中国人民政治协商会议的组织法，制定中华人民共和国中央人民政府的组织法，制定中国人民政治协商会议的共同纲领，选举中国人民政治协商会议的全国委员会，选举中华人民共和国中央人民政府委员会，制定中华人民共和国的国旗和国徽，决定中华人民共和国国都的所在地以及采取和世界大多数国家一样的年号。</p>
+          <p class="indent">诸位代表先生们，我们有一个共同的感觉，这就是我们的工作将写在人类的历史上，它将表明：占人类总数四分之一的中国人从此站立起来了。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">中华人民共和国中央人民政府公告</span>
+          <span class="entry-meta">1949年10月1日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">中华人民共和国中央人民政府今天成立了！</p>
+          <p class="indent">本政府为代表中华人民共和国全国人民的唯一合法政府。凡愿遵守平等、互利及互相尊重领土主权等项原则的任何外国政府，本政府均愿与之建立外交关系。</p>
+          <p class="indent">中华人民共和国中央人民政府是中国人民政治协商会议选举产生的。中央人民政府主席毛泽东，副主席朱德、刘少奇、宋庆龄、李济深、张澜、高岗，委员陈毅等五十六人，于本日就职。现在中央人民政府委员会业已宣布就职，本政府亦已成立，决意执行中国人民政治协商会议共同纲领，领导全国各阶层人民，为彻底完成新民主主义革命、建设新中国而奋斗。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1950"><span class="y">1950</span><span class="ytag">抗美援朝</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">浣溪沙·和柳亚子先生</span>
+          <span class="entry-meta">1950年10月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">长夜难明赤县天，百年魔怪舞翩跹，人民五亿不团圆。</span>
+          <span class="poem-line">一唱雄鸡天下白，万方乐奏有于阗，诗人兴会更无前。</span>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">关于抗美援朝的决策</span>
+          <span class="entry-meta">1950年10月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">我们认为应当参战，必须参战。参战利益极大，不参战损害极大。打得一拳开，免得百拳来。中国人民志愿军要发扬国际主义精神，与朝鲜人民军并肩作战，打败美国侵略者。我们不出兵，让敌人压至鸭绿江边，国内国际反动气焰增高，则对各方都不利，首先是对东北更不利，整个东北边防军将被吸住，南满电力将被控制。</p>
+          <p class="indent">总之，我们认为应当参战，必须参战。参战利益极大，不参战损害极大。</p>
+          <p class="attr">—— 毛泽东关于抗美援朝的指示</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1954"><span class="y">1954</span><span class="ytag">第一部宪法</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">浪淘沙·北戴河</span>
+          <span class="entry-meta">1954年夏</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">大雨落幽燕，白浪滔天，秦皇岛外打鱼船。</span>
+          <span class="poem-line">一片汪洋都不见，知向谁边？</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">往事越千年，魏武挥鞭，东临碣石有遗篇。</span>
+          <span class="poem-line">萧瑟秋风今又是，换了人间。</span>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1956"><span class="y">1956</span><span class="ytag">探索建设</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">论十大关系</span>
+          <span class="entry-meta">1956年4月25日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">最近几个月，中央政治局听了中央工业、农业、运输业、商业、财政等三十四个部门的工作汇报，从中看到一些有关社会主义建设和社会主义改造的问题。综合起来，一共有十个问题，也就是十大关系。</p>
+          <p class="indent">提出这十个问题，都是围绕着一个基本方针，就是要把国内外一切积极因素调动起来，为社会主义事业服务。</p>
+          <p class="indent">一、重工业和轻工业、农业的关系。重工业是我国建设的重点。必须优先发展生产资料的生产，这是已经定了的。但是决不可以因此忽视生活资料尤其是粮食的生产。如果没有足够的粮食和其他生活必需品，首先就不能养活工人，还谈什么发展重工业？所以，重工业和轻工业、农业的关系，必须处理好。</p>
+          <p class="indent">二、沿海工业和内地工业的关系。我国的工业过去集中在沿海。为了平衡工业发展的布局，内地工业必须大力发展。但是，新的工业大部分应当摆在内地，使工业布局逐步平衡，并且利于备战，这是毫无疑义的。但是沿海也可以建立一些新的厂矿，有些也可以是大型的。好好地利用和发展沿海的工业老底子，可以使我们更有力量来发展和支持内地工业。</p>
+          <p class="indent">三、经济建设和国防建设的关系。国防不可不有。我们一定要加强国防建设，这是我们的安全所必需的。但可靠的办法就是把军政费用降到一个适当的比例，增加经济建设费用。只有经济建设发展得更快了，国防建设才能够有更大的进步。</p>
+          <p class="indent">四、国家、生产单位和生产者个人的关系。国家和工厂，国家和工人，工厂和工人，国家和合作社，国家和农民，合作社和农民，都必须兼顾，不能只顾一头。无论只顾哪一头，都是不利于社会主义，不利于无产阶级专政的。这是一个关系到六亿人民的大问题，必须在全党和全国人民中间反复进行教育。</p>
+          <p class="indent">五、中央和地方的关系。中央和地方的关系也是一个矛盾。解决这个矛盾，目前要注意的是，应当在巩固中央统一领导的前提下，扩大一点地方的权力，给地方更多的独立性，让地方办更多的事情。这对我们建设强大的社会主义国家比较有利。我们的国家这样大，人口这样多，情况这样复杂，有中央和地方两个积极性，比只有一个积极性好得多。</p>
+          <p class="indent">六、汉族和少数民族的关系。对于汉族和少数民族的关系，我们的政策是比较稳当的，是比较得到少数民族赞成的。我们着重反对大汉族主义。地方民族主义也要反对，但是那一般的不是重点。</p>
+          <p class="indent">七、党和非党的关系。究竟是一个党好，还是几个党好？现在看来，恐怕是几个党好。不但过去如此，而且将来也可以如此，就是长期共存，互相监督。</p>
+          <p class="indent">八、革命和反革命的关系。反革命是什么因素？是消极因素，破坏因素，是积极因素的反对力量。但是这种消极因素，在社会主义条件下，有些是可以转变为积极因素的。今后社会上的镇反，要少捉少杀。机关、学校、部队里清查反革命，要坚持在延安开始的一条，就是一个不杀、大部不捉。</p>
+          <p class="indent">九、是非关系。党内党外都要分清是非。如何对待犯了错误的人？正确的态度应当是：对于犯错误的同志，采取"惩前毖后，治病救人"的方针，帮助他们认识错误，改正错误，允许他们继续革命。</p>
+          <p class="indent">十、中国和外国的关系。我们提出向外国学习的口号，我想是提得对的。现在有些国家的领导人就不愿意提，甚至不敢提这个口号。这是要有一点勇气的，就是要把戏台上的那个架子放下来。每个民族都有它的长处，不然它为什么能存在？为什么能发展？同时，每个民族也都有它的短处。我们的方针是，一切民族、一切国家的长处都要学，政治、经济、科学、技术、文学、艺术的一切真正好的东西都要学。但是，必须有分析有批判地学，不能盲目地学，不能一切照抄，机械搬运。</p>
+          <p class="indent">我们要调动一切直接的和间接的力量，为把我国建设成为一个强大的社会主义国家而奋斗。</p>
+        </div></div>
+      </div>
+    </section>
+    <section class="period-section" id="p4" data-period="4">
+      <div class="period-head">
+        <div class="pn">曲折探索 <small>1957 – 1965</small></div>
+        <div class="pr"></div>
+      </div>
+      <div class="year-header" data-year="1957"><span class="y">1957</span><span class="ytag">正确处理人民内部矛盾</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">关于正确处理人民内部矛盾的问题</span>
+          <span class="entry-meta">1957年2月27日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">关于正确处理人民内部矛盾的问题，这是一个总题目。为了叙述的方便，分为十二个小题目。在这里，也要说到敌我矛盾的问题，但是重点是讨论人民内部的矛盾问题。</p>
+          <p class="indent">两类不同性质的矛盾。我们的国家现在是空前统一的。但是，这并不是说在我们的社会里已经没有任何的矛盾了。没有矛盾的想法是不符合客观实际的天真的想法。在我们的面前有两类社会矛盾，这就是敌我之间的矛盾和人民内部的矛盾。这是性质完全不同的两类矛盾。</p>
+          <p class="indent">为了正确地认识敌我之间和人民内部这两类不同的矛盾，应该首先弄清楚什么是人民，什么是敌人。人民这个概念在不同的国家和各个国家的不同的历史时期，有着不同的内容。拿我国的情况来说，在抗日战争时期，一切抗日的阶级、阶层和社会集团都属于人民的范围，日本帝国主义、汉奸、亲日派都是人民的敌人。在解放战争时期，美帝国主义和它的走狗即官僚资产阶级、地主阶级以及代表这些阶级的国民党反动派，都是人民的敌人；一切反对这些敌人的阶级、阶层和社会集团，都属于人民的范围。在现阶段，在建设社会主义的时期，一切赞成、拥护和参加社会主义建设事业的阶级、阶层和社会集团，都属于人民的范围；一切反抗社会主义革命和敌视、破坏社会主义建设的社会势力和社会集团，都是人民的敌人。</p>
+          <p class="indent">敌我之间的矛盾是对抗性的矛盾。人民内部的矛盾，在劳动人民之间说来，是非对抗性的；在被剥削阶级和剥削阶级之间说来，除了对抗性的一面以外，还有非对抗性的一面。人民内部的矛盾不是现在才有的，但是在各个革命时期和社会主义建设时期有着不同的内容。在我国现在的条件下，所谓人民内部的矛盾，包括工人阶级内部的矛盾，农民阶级内部的矛盾，知识分子内部的矛盾，工农两个阶级之间的矛盾，工人、农民同知识分子之间的矛盾，工人阶级和其他劳动人民同民族资产阶级之间的矛盾，民族资产阶级内部的矛盾，等等。我们的人民政府是真正代表人民利益的政府，是为人民服务的政府，但是它同人民群众之间也有一定的矛盾。这种矛盾包括国家利益、集体利益同个人利益之间的矛盾，民主同集中的矛盾，领导同被领导之间的矛盾，国家机关某些工作人员的官僚主义作风同群众之间的矛盾。这种矛盾也是人民内部的一个矛盾。一般说来，人民内部的矛盾，是在人民利益根本一致的基础上的矛盾。</p>
+          <p class="indent">在我们的国家里，工人阶级同民族资产阶级的矛盾属于人民内部的矛盾。工人阶级和民族资产阶级的阶级斗争一般地属于人民内部的阶级斗争，这是因为我国的民族资产阶级有两面性。在资产阶级民主革命时期，它有革命性的一面，又有妥协性的一面。在社会主义革命时期，它有剥削工人阶级取得利润的一面，又有拥护宪法、愿意接受社会主义改造的一面。</p>
+          <p class="indent">敌我之间和人民内部这两类矛盾的性质不同，解决的方法也不同。简单地说起来，前者是分清敌我的问题，后者是分清是非的问题。</p>
+          <p class="indent">百花齐放、百家争鸣的方针，是促进艺术发展和科学进步的方针，是促进我国的社会主义文化繁荣的方针。艺术上不同的形式和风格可以自由发展，科学上不同的学派可以自由争论。利用行政力量，强制推行一种风格，一种学派，禁止另一种风格，另一种学派，我们认为会有害于艺术和科学的发展。艺术和科学中的是非问题，应当通过艺术界科学界的自由讨论去解决，通过艺术和科学的实践去解决，而不应当采取简单的方法去解决。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1959"><span class="y">1959</span><span class="ytag">回韶山</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·到韶山</span>
+          <span class="entry-meta">1959年6月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">别梦依稀咒逝川，故园三十二年前。</span>
+          <span class="poem-line">红旗卷起农奴戟，黑手高悬霸主鞭。</span>
+          <span class="poem-line">为有牺牲多壮志，敢教日月换新天。</span>
+          <span class="poem-line">喜看稻菽千重浪，遍地英雄下夕烟。</span>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·登庐山</span>
+          <span class="entry-meta">1959年7月1日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">一山飞峙大江边，跃上葱茏四百旋。</span>
+          <span class="poem-line">冷眼向洋看世界，热风吹雨洒江天。</span>
+          <span class="poem-line">云横九派浮黄鹤，浪下三吴起白烟。</span>
+          <span class="poem-line">陶令不知何处去，桃花源里可耕田？</span>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1961"><span class="y">1961</span><span class="ytag">困难时期的诗篇</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七绝·为女民兵题照</span>
+          <span class="entry-meta">1961年2月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">飒爽英姿五尺枪，曙光初照演兵场。</span>
+          <span class="poem-line">中华儿女多奇志，不爱红装爱武装。</span>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·答友人</span>
+          <span class="entry-meta">1961年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">九嶷山上白云飞，帝子乘风下翠微。</span>
+          <span class="poem-line">斑竹一枝千滴泪，红霞万朵百重衣。</span>
+          <span class="poem-line">洞庭波涌连天雪，长岛人歌动地诗。</span>
+          <span class="poem-line">我欲因之梦寥廓，芙蓉国里尽朝晖。</span>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">卜算子·咏梅</span>
+          <span class="entry-meta">1961年12月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">风雨送春归，飞雪迎春到。</span>
+          <span class="poem-line">已是悬崖百丈冰，犹有花枝俏。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">俏也不争春，只把春来报。</span>
+          <span class="poem-line">待到山花烂漫时，她在丛中笑。</span>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1962"><span class="y">1962</span><span class="ytag">冬云</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·冬云</span>
+          <span class="entry-meta">1962年12月26日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">雪压冬云白絮飞，万花纷谢一时稀。</span>
+          <span class="poem-line">高天滚滚寒流急，大地微微暖气吹。</span>
+          <span class="poem-line">独有英雄驱虎豹，更无豪杰怕熊罴。</span>
+          <span class="poem-line">梅花欢喜漫天雪，冻死苍蝇未足奇。</span>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1963"><span class="y">1963</span><span class="ytag">学雷锋</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">满江红·和郭沫若同志</span>
+          <span class="entry-meta">1963年1月9日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">小小寰球，有几个苍蝇碰壁。</span>
+          <span class="poem-line">嗡嗡叫，几声凄厉，几声抽泣。</span>
+          <span class="poem-line">蚂蚁缘槐夸大国，蚍蜉撼树谈何易。</span>
+          <span class="poem-line">正西风落叶下长安，飞鸣镝。</span>
+          <span class="poem-line">&nbsp;</span>
+          <span class="poem-line">多少事，从来急；天地转，光阴迫。</span>
+          <span class="poem-line">一万年太久，只争朝夕。</span>
+          <span class="poem-line">四海翻腾云水怒，五洲震荡风雷激。</span>
+          <span class="poem-line">要扫除一切害人虫，全无敌。</span>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">向雷锋同志学习</span>
+          <span class="entry-meta">1963年3月5日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">向雷锋同志学习。</p>
+          <p class="attr">—— 毛泽东题词</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1965"><span class="y">1965</span><span class="ytag">重上井冈山</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">水调歌头·重上井冈山</span>
+          <span class="entry-meta">1965年5月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
           <span class="poem-line">久有凌云志，重上井冈山。</span>
           <span class="poem-line">千里来寻故地，旧貌变新颜。</span>
           <span class="poem-line">到处莺歌燕舞，更有潺潺流水，高路入云端。</span>
           <span class="poem-line">过了黄洋界，险处不须看。</span>
+          <span class="poem-line">&nbsp;</span>
           <span class="poem-line">风雷动，旌旗奋，是人寰。</span>
           <span class="poem-line">三十八年过去，弹指一挥间。</span>
           <span class="poem-line">可上九天揽月，可下五洋捉鳖，谈笑凯歌还。</span>
           <span class="poem-line">世上无难事，只要肯登攀。</span>
-          <p class="attr">—— 发表于《诗刊》1976年1月号</p>
-        </div>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge poem">诗词</span> 念奴娇·鸟儿问答</div>
-        <div class="entry-meta">1965年秋作 · 1976年1月《诗刊》发表</div>
-        <div class="entry-body">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">念奴娇·鸟儿问答</span>
+          <span class="entry-meta">1965年秋</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
           <span class="poem-line">鲲鹏展翅，九万里，翻动扶摇羊角。</span>
           <span class="poem-line">背负青天朝下看，都是人间城郭。</span>
           <span class="poem-line">炮火连天，弹痕遍地，吓倒蓬间雀。</span>
           <span class="poem-line">怎么得了，哎呀我要飞跃。</span>
+          <span class="poem-line">&nbsp;</span>
           <span class="poem-line">借问君去何方，雀儿答道：有仙山琼阁。</span>
           <span class="poem-line">不见前年秋月朗，订了三家条约。</span>
           <span class="poem-line">还有吃的，土豆烧熟了，再加牛肉。</span>
           <span class="poem-line">不须放屁，试看天地翻覆。</span>
-          <p class="attr">—— 发表于《诗刊》1976年1月号</p>
-        </div>
+        </div></div>
       </div>
+    </section>
+    <section class="period-section" id="p5" data-period="5">
+      <div class="period-head">
+        <div class="pn">文革十年 <small>1966 – 1976</small></div>
+        <div class="pr"></div>
+      </div>
+      <div class="year-header" data-year="1966"><span class="y">1966</span><span class="ytag">文化大革命开始</span></div>
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">文章</span> 毛泽东致华国锋同志的指示</div>
-        <div class="entry-meta">1976年4月30日 · 毛泽东</div>
-        <div class="entry-body">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">中国共产党中央委员会通知（五一六通知）</span>
+          <span class="entry-meta">1966年5月16日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">各中央局，各省、市、自治区党委，中央各部委，国家机关各部门和各人民团体党组、党委：</p>
+          <p class="indent">中央决定撤销一九六六年二月十二日批转的《文化革命五人小组关于当前学术讨论的汇报提纲》，撤销原来的"文化革命五人小组"及其办事机构，重新设立文化革命小组，隶属于政治局常委之下。</p>
+          <p class="indent">中央认为，一九六六年二月十二日批转的《文化革命五人小组关于当前学术讨论的汇报提纲》，是完全错误的。这个提纲，对当前学术讨论的形势作了完全错误的估计，对文化革命的任务、方针、policy也提出了完全错误的主张。这个提纲反对把社会主义革命进行到底，反对以毛泽东为首的党中央的文化革命路线，打击了左派，包庇了右派，给资产阶级向党进攻以极大的帮助。</p>
+          <p class="indent">总之，中央这个通知，是指导无产阶级文化大革命的一个极其重要的文件。全党必须遵照执行。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">炮打司令部——我的一张大字报</span>
+          <span class="entry-meta">1966年8月5日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">全国第一张马列主义的大字报和人民日报评论员的评论，写得何等好呵！请同志们重读一遍这张大字报和这个评论。可是在五十多天里，从中央到地方的某些领导同志，却反其道而行之，站在反动的资产阶级立场上，实行资产阶级专政，将无产阶级轰轰烈烈的文化大革命运动打下去，颠倒是非，混淆黑白，围剿革命派，压制不同意见，实行白色恐怖，自以为得意，长资产阶级的威风，灭无产阶级的志气，又何其毒也！联系到一九六二年的右倾和一九六四年形"左"而实右的错误倾向，岂不是可以发人深省的吗？</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">关于无产阶级文化大革命的决定（十六条）</span>
+          <span class="entry-meta">1966年8月8日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">一、社会主义革命的新阶段。当前开展的无产阶级文化大革命，是一场触及人们灵魂的大革命，是我国社会主义革命发展的一个更深入、更广阔的新阶段。</p>
+          <p class="indent">二、主流和曲折。广大的工农兵、革命的知识分子和革命的干部，是这场文化大革命的主力军。一大批本来不出名的革命青少年成了勇敢的闯将。他们有魄力、有智慧。他们用大字报、大辩论的形式，大鸣大放，大揭露，大批判，坚决地向那些公开的、隐藏的资产阶级代表人物举行了进攻。这种革命的大方向始终是正确的。</p>
+          <p class="indent">三、敢字当头、放手发动群众。党的领导敢不敢放手发动群众，将决定这场文化大革命的命运。革命的左派队伍是文化大革命的主力军。必须彻底改变那些处于软弱无力的状态的领导。</p>
+          <p class="indent">四、让群众在运动中自己教育自己。无产阶级文化大革命，只能是群众自己解放自己，不能采用任何包办代替的方法。</p>
+          <p class="indent">十六、毛泽东思想是无产阶级文化大革命的行动指南。在文化大革命中，要高举毛泽东思想的伟大红旗，实现无产阶级革命派的大联合，团结大多数，集中力量打击一小撮资产阶级右派分子。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">接见红卫兵时的讲话</span>
+          <span class="entry-meta">1966年8月31日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">你们要关心国家大事，要把无产阶级文化大革命进行到底！</p>
+          <p class="attr">—— 毛泽东在天安门接见红卫兵时的讲话</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1967"><span class="y">1967</span><span class="ytag">斗私批修</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">关于整党问题</span>
+          <span class="entry-meta">1967年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">党组织应是无产阶级先进分子所组成，应能领导无产阶级和革命群众对于阶级敌人进行战斗的朝气蓬勃的先锋队组织。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">关于革命大联合</span>
+          <span class="entry-meta">1967年10月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">在工人阶级内部，没有根本的利害冲突。在无产阶级专政下的工人阶级内部，更没有理由一定要分裂成为势不两立的两大派组织。</p>
+          <p class="attr">—— 毛泽东视察华北、中南和华东地区时的谈话</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1968"><span class="y">1968</span><span class="ytag">知识青年到农村去</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">知识青年上山下乡</span>
+          <span class="entry-meta">1968年12月22日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">知识青年到农村去，接受贫下中农的再教育，很有必要。要说服城里干部和其他人，把自己初中、高中、大学毕业的子女，送到乡下去，来一个动员。各地农村的同志应当欢迎他们去。</p>
+          <p class="attr">—— 毛泽东指示，《人民日报》发表</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">关于清理阶级队伍</span>
+          <span class="entry-meta">1968年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">要认真搞好斗、批、改。要扩大教育面，缩小打击面。要允许干部犯错误，允许干部改正错误。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1969"><span class="y">1969</span><span class="ytag">九大</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">九大开幕词</span>
+          <span class="entry-meta">1969年4月1日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">九大是在无产阶级文化大革命取得伟大胜利的时刻召开的。这次代表大会，将是一次团结的大会，胜利的大会。大会以后，在全国取得更大的胜利。我们希望这次代表大会，能够开成一个团结的大会，胜利的大会。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">整党建党——吐故纳新</span>
+          <span class="entry-meta">1969年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">一个人有动脉，静脉，通过心脏进行血液循环，还要通过肺部进行呼吸，呼出二氧化碳，吸进新鲜氧气，这就是吐故纳新。一个无产阶级的党也要吐故纳新，才能朝气蓬勃。不清除废料，不吸收新鲜血液，党就没有朝气。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1970"><span class="y">1970</span><span class="ytag">我的一点意见</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">我的一点意见</span>
+          <span class="entry-meta">1970年8月31日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">这个材料是陈伯达同志搞的，欺骗了不少同志。第一，这里没有马克思的话。第二，只找了恩格斯一句话，第三，找了列宁的两段话。第四，找了毛主席的话。陈伯达同志摘引这些语录，目的是为了论证他的唯心主义的"天才论"。</p>
+          <p class="indent">是英雄创造历史，还是奴隶们创造历史，人的知识是先天就有的，还是后天才有的，是唯心论的先验论，还是唯物论的反映论，我们只能站在马克思主义的立场上，而绝不能站在陈伯达的立场上。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">五二〇声明</span>
+          <span class="entry-meta">1970年5月20日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">全世界人民团结起来，打败美国侵略者及其一切走狗！</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1971"><span class="y">1971</span><span class="ytag">要团结不要分裂</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">南巡谈话</span>
+          <span class="entry-meta">1971年8月–9月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">要搞马克思主义，不要搞修正主义；要团结，不要分裂；要光明正大，不要搞阴谋诡计。</p>
+          <p class="indent">人贵有自知之明。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">关于批林整风</span>
+          <span class="entry-meta">1971年冬</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">首先是批林，其次才是整风。要联系实际，也要批陈。要认真看书学习，弄通马克思主义。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1972"><span class="y">1972</span><span class="ytag">深挖洞广积粮不称霸</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">备战备荒</span>
+          <span class="entry-meta">1972年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">深挖洞，广积粮，不称霸。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">会见尼克松</span>
+          <span class="entry-meta">1972年2月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">我们两个国家，一个是大国，一个是中等国家。我们两边也都有一些共同的地方，就是不把自己的意见强加于人。我想，我们这次会晤，将是一个良好的开端。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1973"><span class="y">1973</span><span class="ytag">批林批孔</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">批林批孔运动</span>
+          <span class="entry-meta">1973年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">要批判孔子的反动思想。林彪同国民党一样，都是"尊孔反法"的。要把批林和批孔结合起来，才能深入批判林彪路线的极右实质。历史上法家是进步的，儒家是反动的。要支持法家，批判儒家。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">邓小平复出</span>
+          <span class="entry-meta">1973年3月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">邓小平同志是战犯。他打了那么多仗，有战功嘛。他比较有经验，有能力。我看可以请他出来工作，当个副总理。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge poem">诗词</span>
+          <span class="entry-title">七律·读《封建论》呈郭老</span>
+          <span class="entry-meta">1973年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <span class="poem-line">劝君少骂秦始皇，焚坑事业要商量。</span>
+          <span class="poem-line">祖龙魂死秦犹在，孔学名高实秕糠。</span>
+          <span class="poem-line">百代都行秦政法，十批不是好文章。</span>
+          <span class="poem-line">熟读唐人封建论，莫从子厚返文王。</span>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1974"><span class="y">1974</span><span class="ytag">三个世界</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">三个世界划分的理论</span>
+          <span class="entry-meta">1974年2月22日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">我看美国、苏联是第一世界。中间派，日本、欧洲、澳大利亚、加拿大，是第二世界。咱们是第三世界。</p>
+          <p class="indent">第三世界人口很多。亚洲除了日本，都是第三世界。整个非洲都是第三世界，拉丁美洲也是第三世界。</p>
+          <p class="attr">—— 毛泽东会见赞比亚总统卡翁达时的谈话</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1975"><span class="y">1975</span><span class="ytag">安定团结</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">安定团结</span>
+          <span class="entry-meta">1975年</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="quote">要安定团结。</p>
+          <p class="quote">要把国民经济搞上去。</p>
+        </div></div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">指示</span>
+          <span class="entry-title">评《水浒》</span>
+          <span class="entry-meta">1975年8月</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">《水浒》这部书，好就好在投降。做反面教材，使人民都知道投降派。《水浒》只反贪官，不反皇帝。屏晁盖于一百〇八人之外。宋江投降，搞修正主义，把晁的聚义厅改为忠义堂，让人招安了。</p>
+        </div></div>
+      </div>
+
+      <div class="year-header" data-year="1976"><span class="y">1976</span><span class="ytag">巨星陨落</span></div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">对华国锋同志的指示</span>
+          <span class="entry-meta">1976年4月30日</span>
+          <span class="entry-toggle">+</span>
+        </div>
+        <div class="entry-body"><div class="entry-body-inner">
           <p class="quote">慢慢来，不要着急。</p>
           <p class="quote">照过去方针办。</p>
           <p class="quote">你办事，我放心。</p>
-          <p class="attr">—— 毛泽东对华国锋的指示手迹</p>
-        </div>
+        </div></div>
       </div>
+
       <div class="entry">
-        <div class="entry-title"><span class="entry-badge">文章</span> 毛泽东的最后谈话（节录）</div>
-        <div class="entry-meta">1976年 · 毛泽东</div>
-        <div class="entry-body">
-          <p class="indent">人生七十古来稀，我八十多岁了，人老总想后事。中国有句古话叫"盖棺定论"，我虽未盖棺也快了，总可以定论吧！我一生干了两件事：一是与蒋介石斗了那么几十年，把他赶到那么几个海岛上去了；抗战八年，把日本人请回老家去了。另一件事你们都知道，就是发动文化大革命。这事拥护的人不多，反对的人不少。这两件事没有完，这笔遗产得交给下一代。</p>
-          <p class="attr">—— 据相关回忆录整理</p>
+        <div class="entry-header">
+          <span class="entry-badge">文章</span>
+          <span class="entry-title">毛泽东的最后谈话（节录）</span>
+          <span class="entry-meta">1976年</span>
+          <span class="entry-toggle">+</span>
         </div>
+        <div class="entry-body"><div class="entry-body-inner">
+          <p class="indent">人生七十古来稀，我八十多岁了，人老总想后事。中国有句古话叫"盖棺定论"，我虽未盖棺也快了，总可以定论吧！我一生干了两件事：一是与蒋介石斗了那么几十年，把他赶到那么几个海岛上去了；抗战八年，把日本人请回老家去了。另一件事你们都知道，就是发动文化大革命。这事拥护的人不多，反对的人不少。这两件事没有完，这笔遗产得交给下一代。怎么交？和平交不成就动荡中交，搞不好就得血雨腥风了。你们怎么办？只有天知道。</p>
+          <p class="attr">—— 据相关回忆录整理</p>
+        </div></div>
       </div>
-    </div>
+    </section>
   </main>
-  <footer>
-    <div class="container">毛泽东（1893–1976）· 文献辑录 · 静态页面 · GitHub Pages</div>
-  </footer>
+  <footer>毛泽东（1893–1976）· 文献全集 · 静态页面 · GitHub Pages</footer>
   <button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
   <script>
     (function() {
-      var sections = document.querySelectorAll('.year-section');
-      var navLinks = document.querySelectorAll('.year-nav a');
-      function updateActiveYear() {
-        var current = '1966';
+      var sections = document.querySelectorAll('.period-section');
+      var periodLinks = document.querySelectorAll('.period-nav a');
+      var yearSubnavWrap = document.getElementById('yearSubnavWrap');
+      var yearSubnav = document.getElementById('yearSubnav');
+      var toTop = document.getElementById('toTop');
+      var searchInput = document.getElementById('searchInput');
+      var searchCount = document.getElementById('searchCount');
+
+      // ── Collapsible entries ──
+      document.querySelectorAll('.entry-header').forEach(function(hdr) {
+        hdr.addEventListener('click', function() {
+          var entry = this.parentElement;
+          entry.classList.toggle('expanded');
+        });
+      });
+
+      // ── Active period nav on scroll ──
+      function updatePeriodNav() {
+        var current = '0';
         sections.forEach(function(sec) {
           var rect = sec.getBoundingClientRect();
-          if (rect.top <= 200) {
-            var secId = sec.getAttribute('id');
-            if (secId) current = secId.replace('y','');
+          if (rect.top <= 160) current = sec.dataset.period;
+        });
+        periodLinks.forEach(function(a) {
+          a.classList.toggle('active', a.dataset.period === current);
+        });
+        // Year subnav
+        var currentSec = document.querySelector('.period-section[data-period="'+current+'"]');
+        if (currentSec) {
+          var yearHeaders = currentSec.querySelectorAll('.year-header');
+          if (yearHeaders.length > 0) {
+            yearSubnav.innerHTML = '';
+            yearHeaders.forEach(function(h) {
+              var yr = h.dataset.year;
+              var tag = h.querySelector('.ytag').textContent;
+              var a = document.createElement('a');
+              a.href = '#';
+              a.dataset.year = yr;
+              a.innerHTML = yr + ' <span class="ytag-sub">' + tag + '</span>';
+              a.addEventListener('click', function(e) {
+                e.preventDefault();
+                h.scrollIntoView({behavior:'smooth', block:'start'});
+              });
+              yearSubnav.appendChild(a);
+            });
+            yearSubnavWrap.classList.add('visible');
+            updateYearSubnav();
+          } else {
+            yearSubnavWrap.classList.remove('visible');
+          }
+        }
+      }
+
+      function updateYearSubnav() {
+        yearSubnav.querySelectorAll('a').forEach(function(a) {
+          var yr = a.dataset.year;
+          var header = document.querySelector('.year-header[data-year="'+yr+'"]');
+          if (header) {
+            var rect = header.getBoundingClientRect();
+            a.classList.toggle('active', rect.top <= 130 && rect.bottom >= 60);
           }
         });
-        navLinks.forEach(function(a) {
-          a.classList.toggle('active', a.dataset.year === current);
-        });
       }
-      var toTop = document.getElementById('toTop');
+
+      // ── To-top ──
       function updateToTop() {
-        toTop.classList.toggle('visible', window.scrollY > 400);
+        toTop.classList.toggle('visible', window.scrollY > 500);
       }
+
+      // ── Scroll fade-in (Intersection Observer) ──
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.period-head').forEach(function(ph) { observer.observe(ph); });
+      document.querySelectorAll('.period-section').forEach(function(sec) {
+        var yearHeaders = sec.querySelectorAll('.year-header');
+        yearHeaders.forEach(function(yh) { observer.observe(yh); });
+        var entries = sec.querySelectorAll('.entry');
+        var staggerIdx = {};
+        entries.forEach(function(e) {
+          var prevYh = e.previousElementSibling;
+          while (prevYh && !prevYh.classList.contains('year-header')) prevYh = prevYh.previousElementSibling;
+          var yKey = prevYh ? prevYh.dataset.year : '0';
+          if (!staggerIdx[yKey]) staggerIdx[yKey] = 0;
+          e.dataset.stagger = staggerIdx[yKey]++;
+          observer.observe(e);
+        });
+      });
+
+      // ── Search ──
+      function doSearch() {
+        var q = searchInput.value.trim().toLowerCase();
+        var matched = 0;
+        sections.forEach(function(sec) {
+          var entries = sec.querySelectorAll('.entry');
+          var hasVisible = false;
+          entries.forEach(function(e) {
+            var titleEl = e.querySelector('.entry-title');
+            if (!titleEl) return;
+            if (!q) {
+              e.classList.remove('hidden');
+              hasVisible = true;
+              // Restore original title
+              var text = titleEl.textContent;
+              titleEl.querySelectorAll('.hl').forEach(function(h) {
+                var p = h.parentNode;
+                p.replaceChild(document.createTextNode(h.textContent), h);
+                p.normalize();
+              });
+            } else {
+              var text = titleEl.textContent;
+              var ci = text.toLowerCase().indexOf(q);
+              if (ci !== -1) {
+                titleEl.innerHTML = text.slice(0,ci) + '<span class="hl">' + text.slice(ci,ci+q.length) + '</span>' + text.slice(ci+q.length);
+                e.classList.remove('hidden');
+                hasVisible = true;
+                matched++;
+              } else {
+                e.classList.add('hidden');
+              }
+            }
+          });
+          sec.querySelectorAll('.year-header').forEach(function(yh) {
+            var next = yh.nextElementSibling;
+            var vis = false;
+            while (next && !next.classList.contains('year-header') && !next.classList.contains('period-head')) {
+              if (next.classList.contains('entry') && !next.classList.contains('hidden')) vis = true;
+              next = next.nextElementSibling;
+            }
+            yh.style.display = vis || !q ? '' : 'none';
+          });
+          var ph = sec.querySelector('.period-head');
+          var anyY = false;
+          sec.querySelectorAll('.year-header').forEach(function(yh) {
+            if (yh.style.display !== 'none') anyY = true;
+          });
+          ph.style.display = anyY || !q ? '' : 'none';
+        });
+        searchCount.textContent = q ? '找到 ' + matched + ' 条结果' : '';
+      }
+      searchInput.addEventListener('input', doSearch);
+
+      // ── Scroll listener ──
       window.addEventListener('scroll', function() {
-        updateActiveYear();
+        updatePeriodNav();
         updateToTop();
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        if (h > 0) document.getElementById('progressBar').style.width = (window.scrollY / h * 100) + '%';
       }, { passive: true });
-      updateActiveYear();
+
+      // ── Init ──
+      updatePeriodNav();
       updateToTop();
     })();
   </script>
