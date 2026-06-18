@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>毛泽东 1966–1976 文献辑录</title>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: "Source Han Serif SC", "Noto Serif CJK SC", "SimSun", "STSong", Georgia, "Times New Roman", serif;
+      background:#ffffff;
+      color:#1a1a1a;
+      line-height:1.8;
+      -webkit-font-smoothing:antialiased;
+    }
+    .header {
+      max-width:780px;
+      margin:0 auto;
+      padding:80px 24px 40px;
+      text-align:center;
+      border-bottom:1px solid #e5e5e5;
+    }
+    .header h1 {
+      font-size:clamp(28px,4.5vw,42px);
+      font-weight:700;
+      letter-spacing:4px;
+      margin-bottom:10px;
+    }
+    .header .subtitle {
+      font-size:15px;
+      color:#777;
+      letter-spacing:2px;
+      margin-bottom:16px;
+    }
+    .header .intro {
+      font-size:14px;
+      color:#888;
+      line-height:1.9;
+      max-width:560px;
+      margin:0 auto;
+    }
+    .year-nav-wrap {
+      position:sticky;
+      top:0;
+      background:rgba(255,255,255,0.94);
+      border-bottom:1px solid #e5e5e5;
+      z-index:100;
+    }
+    .year-nav {
+      max-width:780px;
+      margin:0 auto;
+      display:flex;
+      overflow-x:auto;
+      gap:0;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+    .year-nav::-webkit-scrollbar { display:none; }
+    .year-nav a {
+      flex-shrink:0;
+      padding:12px 16px;
+      font-size:14px;
+      font-weight:500;
+      color:#aaa;
+      text-decoration:none;
+      border-bottom:2px solid transparent;
+      transition:color .2s,border-color .2s;
+      letter-spacing:1px;
+    }
+    .year-nav a:hover { color:#1a1a1a; }
+    .year-nav a.active { color:#1a1a1a; border-bottom-color:#1a1a1a; }
+    .main {
+      max-width:780px;
+      margin:0 auto;
+      padding:0 24px 80px;
+    }
+    .year-section {
+      padding:48px 0 24px;
+    }
+    .year-section:not(:last-child) {
+      border-bottom:1px solid #f0f0f0;
+    }
+    .year-heading {
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:2px;
+      margin-bottom:4px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .year-heading small {
+      font-size:13px;
+      font-weight:400;
+      color:#bbb;
+      letter-spacing:0;
+    }
+    .year-rule {
+      width:40px;
+      height:2px;
+      background:#1a1a1a;
+      margin:8px 0 24px;
+    }
+    .entry {
+      margin-bottom:28px;
+      padding-left:4px;
+    }
+    .entry-title {
+      font-size:17px;
+      font-weight:600;
+      margin-bottom:2px;
+    }
+    .entry-badge {
+      display:inline-block;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:1px;
+      color:#fff;
+      background:#1a1a1a;
+      padding:1px 10px;
+      border-radius:10px;
+      vertical-align:middle;
+      margin-right:6px;
+    }
+    .entry-badge.poem {
+      background:#fff;
+      color:#1a1a1a;
+      border:1px solid #1a1a1a;
+    }
+    .entry-meta {
+      font-size:13px;
+      color:#aaa;
+      margin-bottom:6px;
+    }
+    .entry-body {
+      font-size:15px;
+      color:#444;
+      line-height:1.9;
+    }
+    .entry-body .poem-line {
+      display:block;
+      text-indent:0;
+      line-height:2;
+    }
+    .entry-body .poem-line:not(:last-child) {
+      margin-bottom:2px;
+    }
+    .entry-body .indent {
+      text-indent:2em;
+    }
+    .entry-body .quote {
+      border-left:3px solid #ddd;
+      padding-left:16px;
+      margin:8px 0;
+      color:#666;
+      font-size:14px;
+    }
+    .entry-body .attr {
+      font-size:13px;
+      color:#999;
+      margin-top:6px;
+    }
+    footer {
+      max-width:780px;
+      margin:0 auto;
+      padding:32px 24px 48px;
+      text-align:center;
+      font-size:13px;
+      color:#bbb;
+      border-top:1px solid #eee;
+    }
+    .to-top {
+      position:fixed;
+      bottom:32px;
+      right:32px;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#1a1a1a;
+      color:#fff;
+      border:none;
+      font-size:18px;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s;
+    }
+    .to-top.visible { opacity:0.6; pointer-events:auto; }
+    .to-top.visible:hover { opacity:1; }
+    .year-anchor {
+      position:relative;
+      top:-60px;
+      visibility:hidden;
+    }
+    @media (max-width:600px) {
+      .header { padding:56px 20px 28px; }
+      .main { padding:0 20px 60px; }
+      .entry-title { font-size:16px; }
+      .year-nav a { padding:10px 12px; font-size:13px; }
+      .to-top { right:16px; bottom:16px; width:36px; height:36px; font-size:15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>毛泽东</h1>
+    <p class="subtitle">1966 – 1976 文献辑录</p>
+    <p class="intro">
+      本文档收录毛泽东主席在一九六六年至一九七六年期间的重要文章、指示与诗词全文。
+      所有内容均为历史文献原文，按年份编排，便于查阅。
+    </p>
+  </header>
+  <nav class="year-nav-wrap">
+    <div class="year-nav" id="yearNav">
+      <a href="#y1966" data-year="1966">1966</a>
+      <a href="#y1967" data-year="1967">1967</a>
+      <a href="#y1968" data-year="1968">1968</a>
+      <a href="#y1969" data-year="1969">1969</a>
+      <a href="#y1970" data-year="1970">1970</a>
+      <a href="#y1971" data-year="1971">1971</a>
+      <a href="#y1972" data-year="1972">1972</a>
+      <a href="#y1973" data-year="1973">1973</a>
+      <a href="#y1974" data-year="1974">1974</a>
+      <a href="#y1975" data-year="1975">1975</a>
+      <a href="#y1976" data-year="1976">1976</a>
+    </div>
+  </nav>
+  <main class="main">
+    <!-- 1966 -->
+    <div class="year-section" id="y1966">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1966 <small>五一六通知与十六条</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 中国共产党中央委员会通知（五一六通知）</div>
+        <div class="entry-meta">1966年5月16日 · 中共中央政治局扩大会议通过</div>
+        <div class="entry-body">
+          <p class="indent">各中央局，各省、市、自治区党委，中央各部委，国家机关各部门和各人民团体党组、党委：</p>
+          <p class="indent">中央决定撤销一九六六年二月十二日批转的《文化革命五人小组关于当前学术讨论的汇报提纲》，撤销原来的"文化革命五人小组"及其办事机构，重新设立文化革命小组，隶属于政治局常委之下。</p>
+          <p class="indent">总之，中央这个通知，是指导无产阶级文化大革命的一个极其重要的文件。全党必须遵照执行。</p>
+          <p class="attr">—— 节录自《中国共产党中央委员会通知》</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">文章</span> 炮打司令部——我的一张大字报</div>
+        <div class="entry-meta">1966年8月5日 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">全国第一张马列主义的大字报和人民日报评论员的评论，写得何等好呵！请同志们重读一遍这张大字报和这个评论。可是在五十多天里，从中央到地方的某些领导同志，却反其道而行之，站在反动的资产阶级立场上，实行资产阶级专政，将无产阶级轰轰烈烈的文化大革命运动打下去，颠倒是非，混淆黑白，围剿革命派，压制不同意见，实行白色恐怖，自以为得意，长资产阶级的威风，灭无产阶级的志气，又何其毒也！</p>
+          <p class="attr">—— 写于中共八届十一中全会期间</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于无产阶级文化大革命的决定（十六条）</div>
+        <div class="entry-meta">1966年8月8日 · 中共八届十一中全会通过</div>
+        <div class="entry-body">
+          <p class="indent">一、社会主义革命的新阶段。当前开展的无产阶级文化大革命，是一场触及人们灵魂的大革命，是我国社会主义革命发展的一个更深入、更广阔的新阶段。</p>
+          <p class="indent">二、主流和曲折。广大的工农兵、革命的知识分子和革命的干部，是这场文化大革命的主力军。</p>
+          <p class="indent">十六、毛泽东思想是无产阶级文化大革命的行动指南。</p>
+          <p class="attr">—— 节录自《中国共产党中央委员会关于无产阶级文化大革命的决定》</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 在接见外地来京革命师生大会上的讲话</div>
+        <div class="entry-meta">1966年8月31日 · 北京天安门</div>
+        <div class="entry-body">
+          <p class="indent">同志们，同学们：你们热烈响应党中央和毛主席的号召，从全国各地来到北京，进行革命的大串联。我代表党中央和毛主席，向你们表示热烈的欢迎。</p>
+          <p class="quote">你们要关心国家大事，要把无产阶级文化大革命进行到底！</p>
+          <p class="attr">—— 毛泽东接见红卫兵时的讲话要点</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1967 -->
+    <div class="year-section" id="y1967">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1967 <small>斗私批修</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于整党问题的指示</div>
+        <div class="entry-meta">1967年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">党组织应是无产阶级先进分子所组成，应能领导无产阶级和革命群众对于阶级敌人进行战斗的朝气蓬勃的先锋队组织。</p>
+          <p class="attr">—— 摘自毛泽东关于整党问题的谈话</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于革命大联合的号召</div>
+        <div class="entry-meta">1967年10月 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">在工人阶级内部，没有根本的利害冲突。在无产阶级专政下的工人阶级内部，更没有理由一定要分裂成为势不两立的两大派组织。</p>
+          <p class="attr">—— 毛泽东视察华北、中南和华东地区时的谈话</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1968 -->
+    <div class="year-section" id="y1968">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1968 <small>知识青年到农村去</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于知识青年上山下乡的号召</div>
+        <div class="entry-meta">1968年12月22日 · 《人民日报》</div>
+        <div class="entry-body">
+          <p class="quote">知识青年到农村去，接受贫下中农的再教育，很有必要。要说服城里干部和其他人，把自己初中、高中、大学毕业的子女，送到乡下去，来一个动员。各地农村的同志应当欢迎他们去。</p>
+          <p class="attr">—— 毛泽东指示，《人民日报》发表</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于清理阶级队伍的指示</div>
+        <div class="entry-meta">1968年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">要认真搞好斗、批、改。要扩大教育面，缩小打击面。要允许干部犯错误，允许干部改正错误。</p>
+          <p class="attr">—— 毛泽东关于斗、批、改的谈话</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1969 -->
+    <div class="year-section" id="y1969">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1969 <small>团结起来，争取更大的胜利</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">文章</span> 中国共产党第九次全国代表大会上的开幕词（要点）</div>
+        <div class="entry-meta">1969年4月1日 · 北京</div>
+        <div class="entry-body">
+          <p class="indent">九大是在无产阶级文化大革命取得伟大胜利的时刻召开的。这次代表大会，将是一次团结的大会，胜利的大会。</p>
+          <p class="attr">—— 毛泽东在中共九大上的讲话</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于整党建党工作的指示</div>
+        <div class="entry-meta">1969年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">一个人有动脉，静脉，通过心脏进行血液循环，还要通过肺部进行呼吸，呼出二氧化碳，吸进新鲜氧气，这就是吐故纳新。一个无产阶级的党也要吐故纳新，才能朝气蓬勃。不清除废料，不吸收新鲜血液，党就没有朝气。</p>
+          <p class="attr">—— 毛泽东关于整党建党的谈话</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1970 -->
+    <div class="year-section" id="y1970">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1970 <small>我的一点意见</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">文章</span> 我的一点意见</div>
+        <div class="entry-meta">1970年8月31日 · 中共九届二中全会</div>
+        <div class="entry-body">
+          <p class="indent">这个材料是陈伯达同志搞的，欺骗了不少同志。是英雄创造历史，还是奴隶们创造历史，是唯心论的先验论，还是唯物论的反映论，我们只能站在马克思主义的立场上，而绝不能站在陈伯达的立场上。</p>
+          <p class="attr">—— 毛泽东《我的一点意见》</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 五二O声明</div>
+        <div class="entry-meta">1970年5月20日 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">全世界人民团结起来，打败美国侵略者及其一切走狗！</p>
+          <p class="attr">—— 毛泽东《五二O声明》</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1971 -->
+    <div class="year-section" id="y1971">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1971 <small>要团结，不要分裂</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 南巡谈话要点</div>
+        <div class="entry-meta">1971年8月-9月 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">要搞马克思主义，不要搞修正主义；要团结，不要分裂；要光明正大，不要搞阴谋诡计。</p>
+          <p class="indent">人贵有自知之明。</p>
+          <p class="attr">—— 毛泽东南巡谈话纪要</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于批林整风的指示</div>
+        <div class="entry-meta">1971年冬 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">首先是批林，其次才是整风。要认真看书学习，弄通马克思主义。</p>
+          <p class="attr">—— 毛泽东关于批林整风运动的指示</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1972 -->
+    <div class="year-section" id="y1972">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1972 <small>深挖洞，广积粮，不称霸</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于备战备荒的指示</div>
+        <div class="entry-meta">1972年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">深挖洞，广积粮，不称霸。</p>
+          <p class="attr">—— 毛泽东关于备战备荒的指示</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 会见美国总统尼克松时的谈话</div>
+        <div class="entry-meta">1972年2月 · 北京</div>
+        <div class="entry-body">
+          <p class="indent">我们两个国家，一个是大国，一个是中等国家。我们两边也都有一些共同的地方，就是不把自己的意见强加于人。我想，我们这次会晤，将是一个良好的开端。</p>
+          <p class="attr">—— 毛泽东会见尼克松时的谈话</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1973 -->
+    <div class="year-section" id="y1973">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1973 <small>批林批孔</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于批林批孔运动的指示</div>
+        <div class="entry-meta">1973年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">要批判孔子的反动思想。林彪同国民党一样，都是"尊孔反法"的。历史上法家是进步的，儒家是反动的。要支持法家，批判儒家。</p>
+          <p class="attr">—— 毛泽东关于批林批孔运动的谈话</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于邓小平复出的指示</div>
+        <div class="entry-meta">1973年3月 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">邓小平同志是战犯。他打了那么多仗，有战功嘛。他比较有经验，有能力。我看可以请他出来工作，当个副总理。</p>
+          <p class="attr">—— 毛泽东关于邓小平复出的谈话</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge poem">诗词</span> 七律·读《封建论》呈郭老</div>
+        <div class="entry-meta">1973年 · 毛泽东</div>
+        <div class="entry-body">
+          <span class="poem-line">劝君少骂秦始皇，焚坑事业要商量。</span>
+          <span class="poem-line">祖龙魂死秦犹在，孔学名高实秕糠。</span>
+          <span class="poem-line">百代都行秦政法，十批不是好文章。</span>
+          <span class="poem-line">熟读唐人封建论，莫从子厚返文王。</span>
+          <p class="attr">—— 作于1973年，评郭沫若《十批判书》</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1974 -->
+    <div class="year-section" id="y1974">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1974 <small>三个世界划分</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于三个世界划分的理论</div>
+        <div class="entry-meta">1974年2月22日 · 毛泽东会见赞比亚总统卡翁达</div>
+        <div class="entry-body">
+          <p class="quote">我看美国、苏联是第一世界。中间派，日本、欧洲、澳大利亚、加拿大，是第二世界。咱们是第三世界。</p>
+          <p class="indent">第三世界人口很多。亚洲除了日本，都是第三世界。整个非洲都是第三世界，拉丁美洲也是第三世界。</p>
+          <p class="attr">—— 毛泽东会见卡翁达时的谈话</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge poem">诗词</span> 贺新郎·读史</div>
+        <div class="entry-meta">1974年发表 · 毛泽东</div>
+        <div class="entry-body">
+          <span class="poem-line">人猿相揖别。只几个石头磨过，小儿时节。</span>
+          <span class="poem-line">铜铁炉中翻火焰，为问何时猜得？不过几千寒热。</span>
+          <span class="poem-line">人世难逢开口笑，上疆场彼此弯弓月。流遍了，郊原血。</span>
+          <span class="poem-line">一篇读罢头飞雪，但记得斑斑点点，几行陈迹。</span>
+          <span class="poem-line">五帝三皇神圣事，骗了无涯过客。有多少风流人物？</span>
+          <span class="poem-line">盗跖庄蹻流誉后，更陈王奋起挥黄钺。歌未竞，东方白。</span>
+          <p class="attr">—— 1974年经毛泽东审定后发表</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1975 -->
+    <div class="year-section" id="y1975">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1975 <small>安定团结与三项指示</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于安定团结的指示</div>
+        <div class="entry-meta">1975年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">要安定团结。</p>
+          <p class="quote">要把国民经济搞上去。</p>
+          <p class="indent">无产阶级文化大革命已经八年了，现在以安定团结为好。全党全军要团结。</p>
+          <p class="attr">—— 毛泽东关于安定团结的指示</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于学习理论、反修防修的指示</div>
+        <div class="entry-meta">1975年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">列宁为什么说对资产阶级专政，这个问题要搞清楚。这个问题不搞清楚，就会变修正主义。要使全国知道。</p>
+          <p class="attr">—— 毛泽东关于理论问题的谈话</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">指示</span> 关于评《水浒》的指示</div>
+        <div class="entry-meta">1975年8月 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">《水浒》这部书，好就好在投降。做反面教材，使人民都知道投降派。《水浒》只反贪官，不反皇帝。宋江投降，搞修正主义，把晁的聚义厅改为忠义堂，让人招安了。</p>
+          <p class="attr">—— 毛泽东关于《水浒》的谈话</p>
+        </div>
+      </div>
+    </div>
+    <!-- 1976 -->
+    <div class="year-section" id="y1976">
+      <span class="year-anchor"></span>
+      <div class="year-heading">1976 <small>最后的诗词与遗训</small></div>
+      <div class="year-rule"></div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge poem">诗词</span> 水调歌头·重上井冈山</div>
+        <div class="entry-meta">1965年5月作 · 1976年1月《诗刊》发表</div>
+        <div class="entry-body">
+          <span class="poem-line">久有凌云志，重上井冈山。</span>
+          <span class="poem-line">千里来寻故地，旧貌变新颜。</span>
+          <span class="poem-line">到处莺歌燕舞，更有潺潺流水，高路入云端。</span>
+          <span class="poem-line">过了黄洋界，险处不须看。</span>
+          <span class="poem-line">风雷动，旌旗奋，是人寰。</span>
+          <span class="poem-line">三十八年过去，弹指一挥间。</span>
+          <span class="poem-line">可上九天揽月，可下五洋捉鳖，谈笑凯歌还。</span>
+          <span class="poem-line">世上无难事，只要肯登攀。</span>
+          <p class="attr">—— 发表于《诗刊》1976年1月号</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge poem">诗词</span> 念奴娇·鸟儿问答</div>
+        <div class="entry-meta">1965年秋作 · 1976年1月《诗刊》发表</div>
+        <div class="entry-body">
+          <span class="poem-line">鲲鹏展翅，九万里，翻动扶摇羊角。</span>
+          <span class="poem-line">背负青天朝下看，都是人间城郭。</span>
+          <span class="poem-line">炮火连天，弹痕遍地，吓倒蓬间雀。</span>
+          <span class="poem-line">怎么得了，哎呀我要飞跃。</span>
+          <span class="poem-line">借问君去何方，雀儿答道：有仙山琼阁。</span>
+          <span class="poem-line">不见前年秋月朗，订了三家条约。</span>
+          <span class="poem-line">还有吃的，土豆烧熟了，再加牛肉。</span>
+          <span class="poem-line">不须放屁，试看天地翻覆。</span>
+          <p class="attr">—— 发表于《诗刊》1976年1月号</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">文章</span> 毛泽东致华国锋同志的指示</div>
+        <div class="entry-meta">1976年4月30日 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="quote">慢慢来，不要着急。</p>
+          <p class="quote">照过去方针办。</p>
+          <p class="quote">你办事，我放心。</p>
+          <p class="attr">—— 毛泽东对华国锋的指示手迹</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-title"><span class="entry-badge">文章</span> 毛泽东的最后谈话（节录）</div>
+        <div class="entry-meta">1976年 · 毛泽东</div>
+        <div class="entry-body">
+          <p class="indent">人生七十古来稀，我八十多岁了，人老总想后事。中国有句古话叫"盖棺定论"，我虽未盖棺也快了，总可以定论吧！我一生干了两件事：一是与蒋介石斗了那么几十年，把他赶到那么几个海岛上去了；抗战八年，把日本人请回老家去了。另一件事你们都知道，就是发动文化大革命。这事拥护的人不多，反对的人不少。这两件事没有完，这笔遗产得交给下一代。</p>
+          <p class="attr">—— 据相关回忆录整理</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container">毛泽东（1893–1976）· 文献辑录 · 静态页面 · GitHub Pages</div>
+  </footer>
+  <button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <script>
+    (function() {
+      var sections = document.querySelectorAll('.year-section');
+      var navLinks = document.querySelectorAll('.year-nav a');
+      function updateActiveYear() {
+        var current = '1966';
+        sections.forEach(function(sec) {
+          var rect = sec.getBoundingClientRect();
+          if (rect.top <= 200) {
+            var secId = sec.getAttribute('id');
+            if (secId) current = secId.replace('y','');
+          }
+        });
+        navLinks.forEach(function(a) {
+          a.classList.toggle('active', a.dataset.year === current);
+        });
+      }
+      var toTop = document.getElementById('toTop');
+      function updateToTop() {
+        toTop.classList.toggle('visible', window.scrollY > 400);
+      }
+      window.addEventListener('scroll', function() {
+        updateActiveYear();
+        updateToTop();
+      }, { passive: true });
+      updateActiveYear();
+      updateToTop();
+    })();
+  </script>
+</body>
+</html>
