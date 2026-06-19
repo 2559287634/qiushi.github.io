@@ -26,7 +26,7 @@
     .progress-bar { position:fixed; top:0; left:0; height:2px; background:#1a1a1a; z-index:999; width:0%; transition:width 0.1s linear; }
     [data-theme="dark"] .progress-bar { background:#e0e0e0; }
     .header { max-width:840px; margin:0 auto; padding:72px 24px 28px; text-align:center; }
-    .header h1 { font-size:clamp(30px,5vw,44px); font-weight:700; letter-spacing:4px; margin-bottom:6px; }
+    .header h1 { font-size:clamp(30px,5vw,44px); font-weight:700; letter-spacing:4px; margin-bottom:5px; }
     .header .subtitle { font-size:14px; color:#999; letter-spacing:2px; }
     .search-wrap { max-width:840px; margin:0 auto; padding:12px 24px 16px; text-align:center; }
     .search-box { position:relative; display:inline-block; width:100%; max-width:400px; }
@@ -59,18 +59,18 @@
     .year-subnav a:hover { color:#1a1a1a; }
     .year-subnav a.active { color:#1a1a1a; font-weight:600; }
     .main { max-width:840px; margin:0 auto; padding:0 24px 80px; }
-    .period-section { padding-top:8px; }
-    .period-head { padding:36px 0 10px; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease-out, transform 0.6s ease-out; }
+    .period-section { padding-top:4px; }
+    .period-head { padding:14px 0 4px; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease-out, transform 0.6s ease-out; }
     .period-head .pn { font-size:20px; font-weight:700; letter-spacing:2px; }
     .period-head .pn small { font-size:13px; font-weight:400; color:#bbb; letter-spacing:0; }
     .period-head .pr { width:34px; height:2px; background:#1a1a1a; margin-top:6px; }
-    .year-header { display:flex; align-items:baseline; gap:10px; padding:20px 0 8px; border-bottom:1px solid #f0f0f0; margin-bottom:14px; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease-out, transform 0.6s ease-out; }
+    .year-header { display:flex; align-items:baseline; gap:10px; padding:5px 0 2px; border-bottom:1px solid #f0f0f0; margin-bottom:2px; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease-out, transform 0.6s ease-out; }
     .year-header .y { font-size:19px; font-weight:700; letter-spacing:1px; }
     .year-header .ytag { font-size:12px; color:#bbb; font-weight:400; }
 
     .entry-header {
       display:flex; align-items:center; gap:8px;
-      padding:10px 14px; cursor:pointer;
+      padding:4px 14px; cursor:pointer;
       user-select:none; transition:background .2s;
     }
     .entry-header:hover { background:#fafafa; }
@@ -100,7 +100,7 @@
       border-top:1px solid #f0f0f0;
     }
     .entry.expanded .entry-body { max-height:10000px; }
-    .entry-body-inner { padding:14px 14px 18px; }
+    .entry-body-inner { padding:6px 14px 10px; }
     .entry-body .poem-line { display:block; text-indent:0; line-height:2; }
     .entry-body .indent { text-indent:2em; }
     .entry-body .quote { border-left:3px solid #ddd; padding-left:16px; margin:8px 0; color:#555; font-size:14px; line-height:1.8; }
@@ -111,7 +111,7 @@
     .to-top { position:fixed; bottom:28px; right:28px; width:38px; height:38px; border-radius:50%; background:#1a1a1a; color:#fff; border:none; font-size:16px; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .35s; }
     .to-top.visible { opacity:0.6; pointer-events:auto; }
     .to-top.visible:hover { opacity:1; }
-    .entry { margin-bottom:10px; padding-left:4px; border:1.5px solid #ddd; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.08); opacity:0; transform:translateY(20px); }
+    .entry { margin-bottom:12px; padding-left:4px; border:1.5px solid #ddd; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.08); opacity:0; transform:translateY(20px); }
     .entry.visible { animation:fadeInUp 0.8s ease-out forwards; }
     @keyframes fadeInUp {
       from { opacity:0; transform:translateY(20px); }
