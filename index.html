@@ -9,7 +9,7 @@
     html { scroll-behavior:smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
-      background:#ffffff; color:#1a1a1a; line-height:1.8; -webkit-font-smoothing:antialiased;
+      background:#ffffff; color:#1a1a1a; line-height:1.8; -webkit-font-smoothing:antialiased; transition:background-color 0.4s ease, color 0.4s ease;
     }
     ::-webkit-scrollbar { width:6px; }
     ::-webkit-scrollbar-track { background:#f5f5f5; }
@@ -24,13 +24,19 @@
       100% { opacity:1; transform:translateY(0); }
     }
     .progress-bar { position:fixed; top:0; left:0; height:2px; background:#1a1a1a; z-index:999; width:0%; transition:width 0.1s linear; }
+    [data-theme="dark"] .progress-bar { background:#e0e0e0; }
     .header { max-width:840px; margin:0 auto; padding:72px 24px 28px; text-align:center; }
-    .header h1 { font-size:clamp(30px,5vw,44px); font-weight:700; letter-spacing:4px; margin-bottom:6px; }
+    .header h1 { font-size:clamp(30px,5vw,44px); font-weight:700; letter-spacing:4px; margin-bottom:5px; }
     .header .subtitle { font-size:14px; color:#999; letter-spacing:2px; }
     .search-wrap { max-width:840px; margin:0 auto; padding:12px 24px 16px; text-align:center; }
     .search-box { position:relative; display:inline-block; width:100%; max-width:400px; }
     .search-box input { width:100%; padding:9px 14px 9px 36px; font-size:14px; font-family:inherit; border:1.5px solid #ddd; border-radius:6px; outline:none; background:#fff; transition:border-color .25s; }
     .search-box input:focus { border-color:#1a1a1a; }
+    .filter-wrap { max-width:840px; margin:0 auto; padding:0 24px 12px; text-align:center; display:flex; gap:6px; justify-content:center; flex-wrap:wrap; }
+    .filter-btn { padding:4px 14px; font-size:12px; font-family:inherit; border:1.5px solid #ddd; border-radius:14px; background:#fff; color:#888; cursor:pointer; transition:all .25s; outline:none; }
+    .filter-btn:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .filter-btn.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
+
     .search-box .icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:13px; color:#bbb; pointer-events:none; }
     .search-count { font-size:12px; color:#aaa; margin-top:4px; min-height:1.4em; }
     .period-nav-wrap { position:sticky; top:0; background:rgba(255,255,255,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #e5e5e5; z-index:200; }
@@ -41,9 +47,11 @@
     .period-nav a.active { color:#1a1a1a; border-bottom-color:#1a1a1a; }
     .year-subnav-wrap { position:sticky; top:41px; background:rgba(255,255,255,0.92); backdrop-filter:blur(6px); border-bottom:1px solid #f0f0f0; z-index:150; overflow:hidden; height:0; opacity:0; transition:height .35s ease,opacity .35s ease; }
     .year-subnav-wrap.visible { height:auto; opacity:1; }
+    
     .year-subnav { max-width:840px; margin:0 auto; display:flex; overflow-x:auto; scrollbar-width:none; padding:5px 0; }
     .year-subnav::-webkit-scrollbar { display:none; }
-    .year-subnav a { flex-shrink:0; padding:4px 10px; margin:2px 2px; border-radius:12px; font-size:11px; color:#bbb; text-decoration:none; letter-spacing:.5px; transition:all .25s; white-space:nowrap; }
+    
+    .year-subnav a { flex-shrink:0; padding:4px 10px; margin:2px 3px; border-radius:12px; font-size:12px; font-weight:400; color:#bbb; text-decoration:none; letter-spacing:.5px; transition:all .25s; white-space:nowrap; }
     .year-subnav a:hover { background:#f0f0f0; color:#1a1a1a; }
     .year-subnav a.active { background:#1a1a1a; color:#fff; font-weight:500; }
     .year-subnav a .ytag-sub { color:#999; font-weight:400; margin-left:2px; }
@@ -51,18 +59,18 @@
     .year-subnav a:hover { color:#1a1a1a; }
     .year-subnav a.active { color:#1a1a1a; font-weight:600; }
     .main { max-width:840px; margin:0 auto; padding:0 24px 80px; }
-    .period-section { padding-top:8px; }
-    .period-head { padding:36px 0 10px; }
+    .period-section { padding-top:4px; }
+    .period-head { padding:14px 0 4px; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease-out, transform 0.6s ease-out; }
     .period-head .pn { font-size:20px; font-weight:700; letter-spacing:2px; }
     .period-head .pn small { font-size:13px; font-weight:400; color:#bbb; letter-spacing:0; }
     .period-head .pr { width:34px; height:2px; background:#1a1a1a; margin-top:6px; }
-    .year-header { display:flex; align-items:baseline; gap:10px; padding:20px 0 8px; border-bottom:1px solid #f0f0f0; margin-bottom:14px; }
+    .year-header { display:flex; align-items:baseline; gap:10px; padding:5px 0 2px; border-bottom:1px solid #f0f0f0; margin-bottom:2px; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease-out, transform 0.6s ease-out; }
     .year-header .y { font-size:19px; font-weight:700; letter-spacing:1px; }
     .year-header .ytag { font-size:12px; color:#bbb; font-weight:400; }
 
     .entry-header {
       display:flex; align-items:center; gap:8px;
-      padding:10px 14px; cursor:pointer;
+      padding:4px 14px; cursor:pointer;
       user-select:none; transition:background .2s;
     }
     .entry-header:hover { background:#fafafa; }
@@ -73,6 +81,8 @@
       color:#fff; background:#1a1a1a; padding:0 8px; border-radius:8px;
       vertical-align:middle; flex-shrink:0;
     }
+
+    .no-results { max-width:840px; margin:0 auto; padding:60px 24px; text-align:center; font-size:15px; color:#bbb; display:none; }
     .entry-badge.poem { background:#fff; color:#1a1a1a; border:1px solid #1a1a1a; }
     .entry-meta { font-size:12px; color:#aaa; flex-shrink:0; }
     .entry-toggle {
@@ -90,7 +100,7 @@
       border-top:1px solid #f0f0f0;
     }
     .entry.expanded .entry-body { max-height:10000px; }
-    .entry-body-inner { padding:14px 14px 18px; }
+    .entry-body-inner { padding:6px 14px 10px; }
     .entry-body .poem-line { display:block; text-indent:0; line-height:2; }
     .entry-body .indent { text-indent:2em; }
     .entry-body .quote { border-left:3px solid #ddd; padding-left:16px; margin:8px 0; color:#555; font-size:14px; line-height:1.8; }
@@ -101,7 +111,8 @@
     .to-top { position:fixed; bottom:28px; right:28px; width:38px; height:38px; border-radius:50%; background:#1a1a1a; color:#fff; border:none; font-size:16px; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .35s; }
     .to-top.visible { opacity:0.6; pointer-events:auto; }
     .to-top.visible:hover { opacity:1; }
-    .entry { margin-bottom:10px; padding-left:4px; border:1px solid #f0f0f0; border-radius:6px; opacity:0; transform:translateY(20px); }
+     .entry { margin-bottom:12px; padding-left:4px; border:1.5px solid #ddd; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.12); opacity:0; transform:translateY(20px); transition:outline 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease; }
+     .entry.selected { outline:2px solid #222; outline-offset:-1px; border-color:#222; box-shadow:0 8px 32px rgba(0,0,0,0.22); transition:outline 0.35s ease-out, border-color 0.35s ease-out, box-shadow 0.35s ease-out; }
     .entry.visible { animation:fadeInUp 0.8s ease-out forwards; }
     @keyframes fadeInUp {
       from { opacity:0; transform:translateY(20px); }
@@ -134,7 +145,7 @@
     :root { --bg:#ffffff; --fg:#1a1a1a; --border:#f0f0f0; --border2:#e5e5e5; --sub:#aaa; --sub2:#bbb; --hover-bg:#fafafa; --card-bg:#ffffff; --nav-bg:rgba(255,255,255,0.94); }
     [data-theme="dark"] { --bg:#111111; --fg:#e0e0e0; --border:#2a2a2a; --border2:#333; --sub:#777; --sub2:#666; --hover-bg:#1e1e1e; --card-bg:#1a1a1a; --nav-bg:rgba(17,17,17,0.94); }
     body { background:var(--bg); color:var(--fg); }
-    .period-nav-wrap { background:var(--nav-bg); border-bottom-color:var(--border2) !important; }
+    .period-nav-wrap { background:var(--nav-bg); }
     .period-nav a { color:var(--sub); }
     .period-nav a:hover, .period-nav a.active { color:var(--fg); }
     .period-nav a.active { border-bottom-color:var(--fg); }
@@ -145,6 +156,8 @@
     .year-subnav a .ytag-sub { color:var(--sub2); }
     .year-subnav a.active .ytag-sub { color:rgba(255,255,255,0.7); }
     .entry { border-color:var(--border); background:var(--card-bg); }
+     [data-theme="dark"] .entry { box-shadow:0 4px 16px rgba(0,0,0,0.35); }
+     [data-theme="dark"] .entry.selected { outline-color:var(--fg); border-color:var(--fg); box-shadow:0 8px 32px rgba(0,0,0,0.55); transition:outline 0.35s ease-out, border-color 0.35s ease-out, box-shadow 0.35s ease-out; }
     .entry-header:hover { background:var(--hover-bg); }
     .entry-body { border-top-color:var(--border); }
     .entry-toggle { border-color:var(--sub2); background:var(--card-bg); color:var(--sub2); }
@@ -159,18 +172,23 @@
     .entry-title .hl { background:#fff3b0; color:#1a1a1a; }
     footer { color:var(--sub); border-top-color:var(--border); }
     .search-box input { background:var(--card-bg); border-color:var(--border2); color:var(--fg); }
+    .filter-btn { background:var(--card-bg); border-color:var(--border2); color:var(--sub2); }
+    .filter-btn:hover { border-color:var(--fg); color:var(--fg); }
+    .filter-btn.active { background:var(--fg); color:var(--bg); border-color:var(--fg); }
     .search-box input:focus { border-color:var(--fg); }
     .to-top { background:var(--fg); color:var(--bg); }
     .entry-badge { background:var(--fg); color:var(--bg); }
+
+    .no-results { max-width:840px; margin:0 auto; padding:60px 24px; text-align:center; font-size:15px; color:#bbb; display:none; }
     .entry-badge.poem { background:transparent; color:var(--fg); border-color:var(--fg); }
     ::-webkit-scrollbar-track { background:var(--bg); }
     ::-webkit-scrollbar-thumb { background:var(--sub2); }
     ::-webkit-scrollbar-thumb:hover { background:var(--sub); }
-    .star-btn { flex-shrink:0; cursor:pointer; font-size:16px; line-height:1; color:#ccc; transition:color .2s,transform .2s; background:none; border:none; padding:0 4px; }
+     .star-btn { flex-shrink:0; cursor:pointer; font-size:18px; line-height:1; color:#ccc; transition:color .2s,transform .2s; background:none; border:none; padding:0 4px; font-weight:900; -webkit-text-stroke:0.5px #999; }
     .star-btn:hover { transform:scale(1.2); }
     .star-btn.favorited { color:#e74c3c; }
-    .mode-toggle { position:fixed; left:16px; bottom:72px; z-index:300; width:36px; height:36px; border-radius:50%; background:var(--card-bg); color:var(--fg); border:1px solid var(--border2); cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:all .25s; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-    .mode-toggle:hover { transform:scale(1.1); }
+     .mode-toggle { position:fixed; left:16px; bottom:72px; z-index:300; width:36px; height:36px; border-radius:50%; background:var(--card-bg); color:var(--fg); border:1px solid var(--border2); cursor:pointer; font-size:13px; font-weight:500; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif; display:flex; align-items:center; justify-content:center; transition:all .25s; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+     .mode-toggle:hover { transform:scale(1.08); background:var(--hover-bg); }
     .fav-toggle { position:fixed; left:16px; bottom:20px; z-index:300; width:36px; height:36px; border-radius:50%; background:var(--card-bg); color:var(--fg); border:1px solid var(--border2); cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:all .25s; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
     .fav-toggle:hover { transform:scale(1.1); }
     [data-theme="dark"] .mode-toggle, [data-theme="dark"] .fav-toggle { box-shadow:0 2px 8px rgba(0,0,0,0.4); }
@@ -207,6 +225,12 @@
     </div>
     <div class="search-count" id="searchCount"></div>
   </div>
+  <div class="filter-wrap">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="文章">文章</button>
+    <button class="filter-btn" data-filter="诗词">诗词</button>
+    <button class="filter-btn" data-filter="指示">指示</button>
+  </div>
   <nav class="period-nav-wrap">
     <div class="period-nav" id="periodNav">
       <a href="#p0" data-period="0">少年</a>
@@ -220,7 +244,7 @@
   <nav class="year-subnav-wrap" id="yearSubnavWrap">
     <div class="year-subnav" id="yearSubnav"></div>
   </nav>
- <button class="mode-toggle" id="modeToggle" title="切换深色/浅色模式">深</button>
+ <button class="mode-toggle" id="modeToggle" title="切换深色/浅色模式">浅</button>
 <button class="fav-toggle" id="favToggle" title="收藏夹">★</button>
 <div class="fav-panel" id="favPanel">
   <h3>★ 收藏夹</h3>
@@ -229,7 +253,7 @@
   <main class="main">
     <section class="period-section" id="p0" data-period="0">
       <div class="period-head">
-        <div class="pn">少年 <small>1893 – 1920</small></div>
+        <div class="pn">少年</div>
         <div class="pr"></div>
       </div>
       <div class="year-header" data-year="1893"><span class="y">1893</span><span class="ytag">诞生</span></div>
@@ -311,7 +335,7 @@
     </section>
     <section class="period-section" id="p1" data-period="1">
       <div class="period-head">
-        <div class="pn">青年 <small>1921 – 1934</small></div>
+        <div class="pn">青年</div>
         <div class="pr"></div>
       </div>
       <div class="year-header" data-year="1921"><span class="y">1921</span><span class="ytag">中共一大</span></div>
@@ -565,7 +589,7 @@
     </section>
     <section class="period-section" id="p2" data-period="2">
       <div class="period-head">
-        <div class="pn">延安革命 <small>1935 – 1948</small></div>
+        <div class="pn">延安革命</div>
         <div class="pr"></div>
       </div>
       <div class="year-header" data-year="1935"><span class="y">1935</span><span class="ytag">长征</span></div>
@@ -775,7 +799,7 @@
     </section>
     <section class="period-section" id="p3" data-period="3">
       <div class="period-head">
-        <div class="pn">建国后 <small>1949 – 1956</small></div>
+        <div class="pn">建国后</div>
         <div class="pr"></div>
       </div>
       <div class="year-header" data-year="1949"><span class="y">1949</span><span class="ytag">开国</span></div>
@@ -897,7 +921,7 @@
     </section>
     <section class="period-section" id="p4" data-period="4">
       <div class="period-head">
-        <div class="pn">曲折探索 <small>1957 – 1965</small></div>
+        <div class="pn">曲折探索</div>
         <div class="pr"></div>
       </div>
       <div class="year-header" data-year="1957"><span class="y">1957</span><span class="ytag">正确处理人民内部矛盾</span></div>
@@ -1088,7 +1112,7 @@
     </section>
     <section class="period-section" id="p5" data-period="5">
       <div class="period-head">
-        <div class="pn">文革十年 <small>1966 – 1976</small></div>
+        <div class="pn">文革十年</div>
         <div class="pr"></div>
       </div>
       <div class="year-header" data-year="1966"><span class="y">1966</span><span class="ytag">文化大革命开始</span></div>
@@ -1386,7 +1410,7 @@
       <div class="year-header" data-year="1976"><span class="y">1976</span><span class="ytag">巨星陨落</span></div>
       <div class="entry">
         <div class="entry-header">
-          <span class="entry-badge">文章</span>
+           <span class="entry-badge">指示</span>
           <span class="entry-title">对华国锋同志的指示</span>
           <span class="entry-meta">1976年4月30日</span>
           <button class="star-btn" data-fav="">☆</button><span class="entry-toggle">+</span>
@@ -1412,8 +1436,9 @@
       </div>
     </section>
   </main>
+<div class="no-results" id="noResults">暂无相关内容</div>
   <footer>毛泽东（1893–1976）· 文献全集 · GitHub Pages</footer>
-  <button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+ <button class="to-top" id="toTop">↑</button>
   <script>
     (function() {
       var sections = document.querySelectorAll('.period-section');
@@ -1425,14 +1450,15 @@
       var searchCount = document.getElementById('searchCount');
 
       // ── Collapsible entries ──
-      document.querySelectorAll('.entry-header').forEach(function(hdr) {
-        hdr.addEventListener('click', function() {
-          var entry = this.parentElement;
-          entry.classList.toggle('expanded');
+        document.querySelectorAll('.entry-header').forEach(function(hdr) {
+          hdr.addEventListener('click', function() {
+            var entry = this.parentElement;
+            entry.classList.toggle('expanded');
+            entry.classList.toggle('selected');
+          });
         });
-      });
 
-      // ── Active period nav on scroll ──
+      // ── Active period nav + year subnav on scroll ──
       function updatePeriodNav() {
         var current = '0';
         sections.forEach(function(sec) {
@@ -1442,7 +1468,7 @@
         periodLinks.forEach(function(a) {
           a.classList.toggle('active', a.dataset.period === current);
         });
-        // Year subnav
+        // Build year subnav for current period (just year numbers, no tags)
         var currentSec = document.querySelector('.period-section[data-period="'+current+'"]');
         if (currentSec) {
           var yearHeaders = currentSec.querySelectorAll('.year-header');
@@ -1450,11 +1476,10 @@
             yearSubnav.innerHTML = '';
             yearHeaders.forEach(function(h) {
               var yr = h.dataset.year;
-              var tag = h.querySelector('.ytag').textContent;
               var a = document.createElement('a');
               a.href = '#';
               a.dataset.year = yr;
-              a.innerHTML = yr + ' <span class="ytag-sub">' + tag + '</span>';
+              a.textContent = yr;
               a.addEventListener('click', function(e) {
                 e.preventDefault();
                 h.scrollIntoView({behavior:'smooth', block:'start'});
@@ -1462,39 +1487,53 @@
               yearSubnav.appendChild(a);
             });
             yearSubnavWrap.classList.add('visible');
-            updateYearSubnav();
+            // Highlight current year
+            yearSubnav.querySelectorAll('a').forEach(function(a) {
+              var yr = a.dataset.year;
+              var header = document.querySelector('.year-header[data-year="'+yr+'"]');
+              if (header) {
+                var rect = header.getBoundingClientRect();
+                a.classList.toggle('active', rect.top <= 130 && rect.bottom >= 60);
+              }
+            });
           } else {
             yearSubnavWrap.classList.remove('visible');
           }
         }
       }
-
-      function updateYearSubnav() {
-        yearSubnav.querySelectorAll('a').forEach(function(a) {
-          var yr = a.dataset.year;
-          var header = document.querySelector('.year-header[data-year="'+yr+'"]');
-          if (header) {
-            var rect = header.getBoundingClientRect();
-            a.classList.toggle('active', rect.top <= 130 && rect.bottom >= 60);
-          }
-        });
-      }
-
       // ── To-top ──
       function updateToTop() {
         toTop.classList.toggle('visible', window.scrollY > 500);
       }
+      toTop.addEventListener('click', function() {
+        var startY = window.scrollY;
+        if (startY === 0) return;
+        var startTime = null;
+        var duration = 600;
+        function step(now) {
+          if (!startTime) startTime = now;
+          var elapsed = now - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          // easeOutCubic: 1 - (1-t)^3
+          var ease = 1 - Math.pow(1 - progress, 3);
+          window.scrollTo(0, startY * (1 - ease));
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
 
-      // ── Scroll fade-in (Intersection Observer) ──
+      // ── Scroll fade-in (Intersection Observer) — repeatable ──
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
+          var delay = e.target.dataset.stagger || 0;
+          e.target.style.transitionDelay = (delay * 0.1) + 's';
           if (e.isIntersecting) {
-            var delay = e.target.dataset.stagger || 0;
-            e.target.style.transitionDelay = (delay * 0.1) + 's';
             e.target.classList.add('visible');
+          } else {
+            e.target.classList.remove('visible');
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.period-head').forEach(function(ph) { observer.observe(ph); });
       document.querySelectorAll('.period-section').forEach(function(sec) {
         var yearHeaders = sec.querySelectorAll('.year-header');
@@ -1515,20 +1554,20 @@
       var modeToggle = document.getElementById('modeToggle');
       var savedTheme = localStorage.getItem('theme') || 'light';
       if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-       modeToggle.textContent = savedTheme === 'dark' ? '浅' : '深';
+       modeToggle.textContent = savedTheme === 'dark' ? '深' : '浅';
       modeToggle.addEventListener('click', function() {
         var htmlEl = document.documentElement;
         var isDark = htmlEl.getAttribute('data-theme') === 'dark';
         if (isDark) {
           htmlEl.removeAttribute('data-theme');
           localStorage.setItem('theme', 'light');
-          modeToggle.textContent = '深';
+           modeToggle.textContent = '浅';
         } else {
           htmlEl.setAttribute('data-theme', 'dark');
           localStorage.setItem('theme', 'dark');
-          modeToggle.textContent = '浅';
+           modeToggle.textContent = '深';
         }
-        updateYearSubnav();
+        updatePeriodNav();
       });
 
       // ── Favorites ──
@@ -1652,7 +1691,7 @@
             var next = yh.nextElementSibling;
             var vis = false;
             while (next && !next.classList.contains('year-header') && !next.classList.contains('period-head')) {
-              if (next.classList.contains('entry') && !next.classList.contains('hidden')) vis = true;
+              if (next.classList.contains('entry') && !next.classList.contains('hidden') && !next.classList.contains('filter-hidden')) vis = true;
               next = next.nextElementSibling;
             }
             yh.style.display = vis || !q ? '' : 'none';
@@ -1664,9 +1703,67 @@
           });
           ph.style.display = anyY || !q ? '' : 'none';
         });
-        searchCount.textContent = q ? '找到 ' + matched + ' 条结果' : '';
+        searchCount.textContent = q ? '找到 ' + matched + ' 条结果' : (currentFilter !== 'all' ? '' : '');
+        // Show/hide no-results message
+        var totalVisible = 0;
+        document.querySelectorAll('.entry').forEach(function(e) {
+          if (!e.classList.contains('hidden') && !e.classList.contains('filter-hidden')) totalVisible++;
+        });
+        document.getElementById('noResults').style.display = totalVisible === 0 ? 'block' : 'none';
       }
       searchInput.addEventListener('input', doSearch);
+      // ── Filter by type ──
+      var currentFilter = "all";
+      document.querySelectorAll(".filter-btn").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          document.querySelectorAll(".filter-btn").forEach(function(b) { b.classList.remove("active"); });
+          this.classList.add("active");
+          currentFilter = this.dataset.filter;
+          applyFilter();
+        });
+      });
+
+      function applyFilter() {
+        var totalVisible = 0;
+        sections.forEach(function(sec) {
+          var entries = sec.querySelectorAll(".entry");
+          entries.forEach(function(e) {
+            var badge = e.querySelector(".entry-badge");
+            var type = badge ? badge.textContent.trim() : "";
+            if (currentFilter === "all" || type === currentFilter) {
+              e.classList.remove("filter-hidden");
+            } else {
+              e.classList.add("filter-hidden");
+            }
+          });
+          // Hide year headers with no visible entries
+          sec.querySelectorAll(".year-header").forEach(function(yh) {
+            var next = yh.nextElementSibling;
+            var vis = false;
+            while (next && !next.classList.contains("year-header") && !next.classList.contains("period-head")) {
+              if (next.classList.contains("entry") && !next.classList.contains("filter-hidden")) vis = true;
+              next = next.nextElementSibling;
+            }
+            yh.style.display = vis ? "" : "none";
+            if (vis) totalVisible++;
+          });
+          // Hide period head if no years visible
+          var ph = sec.querySelector(".period-head");
+          var anyY = false;
+          sec.querySelectorAll(".year-header").forEach(function(yh) {
+            if (yh.style.display !== "none") anyY = true;
+          });
+          ph.style.display = anyY ? "" : "none";
+        });
+        // Re-run search to combine with filter
+        doSearch();
+      }
+
+      // Add filter-hidden to CSS
+      var styleSheet = document.createElement("style");
+      styleSheet.textContent = ".entry.filter-hidden { display:none; }";
+      document.head.appendChild(styleSheet);
+
 
       // ── Scroll listener ──
       window.addEventListener('scroll', function() {
